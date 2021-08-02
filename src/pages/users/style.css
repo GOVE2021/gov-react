@@ -1,0 +1,85 @@
+
+.selectBar{
+  display: flex;
+  padding: 10px 0 30px;
+}
+.dropdownClass{
+  z-index: 99!important;
+}
+.tableList{
+  min-width: 800px;
+}
+.userDetailModal{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/********* renderUserShowDom css ********/
+.userItem{
+  display: flex;
+  width: 50%;
+  height: 45px;
+}
+.userItem .calssfiy{
+  width: 40%;
+  height: 100%;
+  text-align: right;
+  padding: 10px 10px;
+}
+.userItem .value{
+  width: 60%;
+  height: 100%;
+  padding: 10px 10px;
+}
+/*********** end **********/
+
+/************ 操作栏 *********/
+.handleCss span{
+  user-select: none;
+  cursor: pointer;
+  padding: 5px;
+}
+.handleCss span:first-child{
+  color: #208bff;
+}
+.handleCss span:last-child{
+  color: red;
+}
+/*********** end **********/
+.bottomBar{
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+.bottomBar .pagination{
+  position: absolute;
+  right: 0;
+  top: 20px;
+}
+
+/************ form ************/
+.form{
+  display: flex;
+  flex-wrap: wrap;
+}
+.form .formItem{
+  width: 50%;
+  height: 45px;
+  display: flex;
+  margin-bottom: 1px;
+}
+.form .formItem .label{
+  width: 40%;
+  height: 100%;
+  text-align: right;
+  padding: 8px 10px;
+}
+.form .formItem .value{
+  height: 100%;
+  width: 60%;
+  padding: 5px 0px;
+}
+.form .formItem .dropdownClass{
+  z-index: 99;
+}

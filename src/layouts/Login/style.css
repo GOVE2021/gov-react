@@ -1,0 +1,23 @@
+
+.bg{
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: #CCEEFF;
+}
+.title{
+  width: 100%;
+  height: auto;
+  padding-top: 8%;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+}
+.login{
+  width: 600px;
+  height: 400px;
+  position: absolute;
+  top: 26%;
+  left: 50%;
+  margin-left: -300px;
+}

@@ -1,0 +1,38 @@
+.content{
+  width: 100%;
+  /* background-color: gray; */
+}
+.itemDom{
+  display: flex;
+  padding: 10px 0;
+}
+.itemDom .label{
+  width: 150px;
+  text-align: right;
+  padding-right: 10px;
+}
+.itemDom .value{
+  width: 100%;
+  flex: 1;
+  word-break: break-all;
+  text-align: left;
+}
+
+/******************** 修改密码 ********************/
+.formDom{
+  display: flex;
+  width: 100%;
+  padding: 10px 0;
+}
+.formDom .label{
+  width: 100px;
+  text-align: right;
+  padding-top: 5px;
+  padding-right: 10px;
+}
+.formDom .value{
+  width: 100%;
+  flex: 1;
+
+}
+/******************** end ********************/

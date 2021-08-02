@@ -1,0 +1,105 @@
+
+.content{
+  font-size: 14px;
+}
+.treeLineTitle,.treeLineItem{
+  display: flex;
+  font-size: 14px;
+}
+
+/************* 部门树 ***************/
+.ant-tree-node-selected{
+  background-color: transparent;
+}
+.treeDom{
+  width: 100%;
+}
+.treeDom li>span{
+  /* background-color: #FFF!important; */
+  padding: 5px 0 5px 10px!important;
+  height: 34px!important;
+}
+/* .treeDom li span:hover{
+  background-color: rgba(0,0,0,0.08)!important;
+  border-radius: 4px;
+} */
+.treeLineItem .title{
+  width: 100%;
+  flex: 1;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  /* font-weight: 600; */
+}
+.treeLineItem .count{
+  width: 100px;
+  /* color: green; */
+  text-align: center;
+}
+.treeLineItem .handel{
+  width: 100px;
+}
+.treeLineItem .handel>span,
+.treeLineItem .handel>span:hover{
+  user-select: none;
+  background-color: transparent!important;
+}
+.treeLineItem .handel>span:first-child{
+  color: #208bff;
+}
+.treeLineItem .handel>span:last-child{
+  color: red;
+  margin-left: 10px;
+}
+/************* end ***************/
+
+/************* 表头 ***************/
+.treeLineTitle{
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.treeLineTitle .title{
+  width: 100%;
+  flex: 1;
+  font-weight: 600;
+}
+.treeLineTitle .count{
+  width: 100px;
+  text-align: center;
+}
+.treeLineTitle .handel{
+  width: 100px;
+}
+/************* end ***************/
+/************* 编辑部门 ***************/
+.editDepartentDom{
+  display: flex;
+  padding: 5px 0;
+}
+.editDepartentDom .label{
+  width: 120px;
+  text-align: right;
+  padding-right: 10px;
+}
+.editDepartentDom .value{
+  width: 100%;
+  flex: 1;
+  z-index: 10;
+}
+/************* end ***************/
+/************* spin ***************/
+.spin{
+  width: 100%;
+  position: relative;
+  height: 400px;
+}
+.spin>div{
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  margin-left: -20px;
+}
+/************* spin ***************/

@@ -1,0 +1,79 @@
+
+.selectBar{
+  display: flex;
+  padding: 10px 0 30px;
+}
+.tableList{
+  min-width: 800px;
+}
+.salaryDetailModal{
+  height: 400px;
+  overflow: auto;
+}
+.classifyTitle{
+  font-size: 20px;
+  font-weight: 600;
+  padding: 20px 0 5px 0;
+}
+.modalFooter{
+  width: 100%;
+}
+.spinDom{
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  margin-top: -30px;
+}
+
+.bottomBar{
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+.bottomBar .pagination{
+  position: absolute;
+  right: 0;
+  top: 20px;
+}
+
+/********* 工资单展示 css ********/
+.addSalaryDom{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid gray;
+  border-radius: 11px;
+  padding: 15px 0;
+}
+.userItem{
+  display: flex;
+  width: 50%;
+  height: 45px;
+}
+.userItem .calssfiy{
+  width: 60%;
+  height: 100%;
+  text-align: right;
+  padding: 10px 10px;
+}
+.userItem .value,
+.userItem .editValue{
+  width: 40%;
+  height: 100%;
+  padding: 10px 10px;
+}
+.userItem .editValue{
+  margin-top: -4px;
+  padding-left: 0;
+}
+.countSalary{
+  padding: 10px 130px;
+  font-size: 20px;
+}
+/*********** end **********/
+.handleCss{
+  color: red;
+  user-select: none;
+  cursor: pointer;
+}

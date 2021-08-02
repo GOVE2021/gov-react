@@ -1,0 +1,49 @@
+.content{
+  width: 1000px;
+}
+.handleCss span{
+  color: #208bff;
+  user-select: none;
+  cursor: pointer;
+}
+.selectBar{
+  display: flex;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+/****************** modal css ***********************/
+.modalLine{
+  display: flex;
+  width: 100%;
+}
+.modalLine:nth-child(2){
+  margin-top: 20px;
+}
+.modalLine .label{
+  width: 170px;
+  padding-top: 4px;
+  padding-right: 10px;
+  text-align: right;
+}
+.modalLine .value{
+  width: 100%;
+  flex: 1;
+}
+.modalLine .dropdownClass{
+  z-index: 99;
+}
+.rootTips{
+  margin: 25px 0 0 100px;
+}
+/****************** modal end ***********************/
+
+.bottomBar{
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+.bottomBar .pagination{
+  position: absolute;
+  right: 0;
+  top: 20px;
+}

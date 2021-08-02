@@ -1,0 +1,85 @@
+
+.modalDom{
+  width: 100vw;
+  height: 100vh;
+  position: fixed!important;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  /* pointer-events: none; */
+}
+.modal{
+  position: absolute;
+  bottom: 0px;
+  background-color: #FFF;
+  height: 300px;
+  width: 100vw;
+}
+.modal .titleBar{
+  display: flex;
+  height: 50px;
+  font-size: 18px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.modal .btn{
+  width: 20vw;
+  height: 100%;
+  text-align: center;
+}
+.modal .selectValueShow{
+  width: 100%;
+  flex: 1;
+  text-align: center;
+  height: 100%;
+  font-weight: 600;
+}
+.selectBar{
+  display: flex;
+  height: 250px;
+  min-width: 330px;
+  overflow: scroll;
+}
+.selectBar .selectYear{
+  width: 130px;
+  min-width: 70px;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+.selectBar .selectYear .list{
+  padding: 20px 0;
+}
+.selectBar .selectYear .list .yearItem{
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* padding-left: 30%; */
+  user-select: none;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+}
+.selectBar .selectMonth{
+  width: 100%;
+  min-width: 250px;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 10px;
+}
+.selectBar .selectMonth .monthItem{
+  width: 33.3%;
+  height: 50px;
+  padding: 10px;
+}
+.selectBar .selectMonth .monthItem .item{
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  text-align: center;
+  padding-top: 4px;
+  border: 1px solid rgba(0,0,0,0.2);
+}
