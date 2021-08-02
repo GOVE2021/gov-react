@@ -25,3 +25,10 @@ export const updateSalaryData = (params) => {
 export const deleteSalaryData = (params) => {
   return instance.POST('/api/salary/v1/profile/delete', params);
 }
+/**
+ * 添加薪资详情
+ * @returns JSON
+ */
+export const addSalaryData = (params) => {
+  return instance.POST('/api/salary/v1/profile/add', params);
+}

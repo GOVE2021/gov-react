@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Modal, Spin, Button, Input, DatePicker, message } from 'antd';
+import { Modal, Spin, Button, Input, DatePicker, Select, message } from 'antd';
 import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, ADD_TYPE } from './cont';
 import moment from 'moment';
 
 import style from './style.css';
 
 const { MonthPicker } = DatePicker;
+const { Option } = Select;
+let timer = null;
 class ItemSalary extends Component {
   constructor(props) {
     super(props);
     this.state = {
       itemId: null,
       isEdit: false,
+      selectPersonKeyword: '', // 搜索人员关键字
+      selectPersonId: null, // 当前选择的人员
       isLoadingDetail: false, // 是否在获取详情
       modalTitle: '',
+      psrsonListLoading: false,
       detailSalary: null,
       salaryId: null,
+      personList: [], // 人员列表
     };
   }
 
@@ -37,17 +43,19 @@ class ItemSalary extends Component {
    * 获取详情
    */
   getSalaryDetailForUserDetail = () => {
-    const { salaryId, itemData } = this.state;
+    const { salaryId, detailSalary } = this.state;
     const { dispatch } = this.props;
     dispatch({
       type: 'Salary/getSalaryDetail',
       payload: { 
-        "userId": itemData?.userId,
+        "userId": detailSalary?.userId,
         "salaryId": salaryId,
       },
     }).then(({ code, msg, data }) => {
       this.setState({ isLoadingDetail: false });
       if (code === 200){
+        data.salaryId = salaryId;
+        data.userId = detailSalary?.userId;
         this.setState({ detailSalary: data || {} });
       }else{
         message.error(msg);
@@ -55,6 +63,34 @@ class ItemSalary extends Component {
       }
     })
   }
+  
+  /**
+   * 获取人员
+   */
+   getPersonByKeywords = (value) => {
+    const { dispatch } = this.props;
+    this.setState({ selectPersonKeyword: value });
+    if(value.length === 0) return;
+    this.setState({ psrsonListLoading: true });
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      dispatch({
+        type: 'Users/getPersonByKeywords',
+        payload: { 
+          "keyWords": value,
+        },
+      }).then(({ code, msg, data }) => {
+        this.setState({ psrsonListLoading: false });
+        if (code === 200){
+          this.setState({ personList: data?.list || [] });
+        }else{
+          message.error(msg);
+          this.setState({ personList: [] });
+        }
+      })
+    }, 800);
+  }
+  
   /**
    * 渲染编辑效果
    * @param {*} object 
@@ -112,7 +148,7 @@ class ItemSalary extends Component {
    * @returns DOM
    */
   renderFooterDom = () => {
-    const { isEdit, salaryId, isLoadingDetail } = this.state;
+    const { isEdit, salaryId, isLoadingDetail, detailSalary } = this.state;
     const { roleType } = this.props;
     return (
       <div className={style.modalFooter}>
@@ -123,7 +159,13 @@ class ItemSalary extends Component {
             >取消</Button>
             <Button
               type="primary"
-              onClick={this.onUpdateSalaryData}
+              onClick={() => {
+                if(detailSalary?.id === ADD_TYPE){
+                  this.addSalaryData();
+                }else{
+                  this.onUpdateSalaryData()
+                }
+              }}
             >保存</Button>
           </div>
           :
@@ -165,6 +207,25 @@ class ItemSalary extends Component {
     )
   }
   /**
+   * 添加薪资信息
+   */
+  addSalaryData = () => {
+    const { detailSalary, selectPersonId } = this.state;
+    delete detailSalary.id;
+    detailSalary.userId = selectPersonId;
+    this.props.dispatch({
+      type: 'Salary/addSalaryData',
+      payload: detailSalary,
+    }).then(({ code, msg }) => {
+      if(code === 200){
+        this.setState({ selectPersonId: null })
+        this.closeModalChange()
+      } else {
+        message.error(msg);
+      }
+    })
+  }
+  /**
    * 保存修改数据
    */
   onUpdateSalaryData = () => {
@@ -174,9 +235,7 @@ class ItemSalary extends Component {
       payload: detailSalary,
     }).then(({ code, msg }) => {
       if(code === 200){
-        this.setState({
-          isEdit: false,
-        })
+        this.closeModalChange();
       } else {
         message.error(msg);
       }
@@ -209,7 +268,7 @@ class ItemSalary extends Component {
     });
   }
   /**
-   * 薪资账期change
+   * 薪资账期（上下）
    * @param {date} value 
    */
   monthSalaryChange = (value) =>{
@@ -228,9 +287,26 @@ class ItemSalary extends Component {
       this.getSalaryDetailForUserDetail();
     });
   }
+  /**
+   * 薪资账期（添加薪资）
+   * @param {date} value 
+   */
+  addSalaryMonth = (value) => {
+    const { detailSalary } = this.state;
+    detailSalary.salaryId = moment(value).format('YYYY-MM');
+    this.setState({ detailSalary });
+  }
   render() {
     const { itemVisible } = this.props;
-    const { isEdit, detailSalary={}, isLoadingDetail, modalTitle } = this.state;
+    const {
+      isEdit,
+      detailSalary = {},
+      isLoadingDetail,
+      modalTitle,
+      selectPersonId,
+      personList,
+      psrsonListLoading,
+    } = this.state;
     
     return (
       <div className={style.tableList}>
@@ -254,6 +330,60 @@ class ItemSalary extends Component {
               }
               return (
                 <div>
+                  {
+                    (detailSalary?.id === ADD_TYPE) && 
+                    <>
+                      <div className={style.classifyTitle}>基本信息</div>
+                      <div className={style.addSalaryDom}>
+                        <div className={style.userItem} style={{width: 'auto'}} key={'userId'}>
+                          <div className={style.calssfiy} style={{width: 'auto', marginLeft: '30px'}}>姓名:</div>
+                          <div className={style.editValue}>
+                            <Select
+                              showSearch   
+                              optionLabelProp={'label'}
+                              style={{ width: 250 }}
+                              getPopupContainer={(reactNode) => reactNode}
+                              placeholder={'请输入关键字查询'}
+                              dropdownClassName={style.dropdownClass}
+                              value={selectPersonId || undefined}
+                              onChange={(e) => {
+                                this.setState({ selectPersonId: e });
+                              }}
+                              onSearch={(e) => {
+                                this.getPersonByKeywords(e)
+                              }}
+                              loading={psrsonListLoading}
+                              filterOption={false}
+                            >{
+                              personList.map(item => {
+                                return <Option value={item.userId} label={item.realname} text={item?.realname}>
+                                  <div style={{fontSize: 14}}>{item?.realname || '-'}</div>
+                                  <div style={{fontSize: 12,color: 'gray'}}>{item?.departmentName}</div>
+                                  <div style={{fontSize: 12,color: 'gray'}}>{item?.idNo}</div>
+                                </Option>
+                              })
+                            }
+                            </Select>
+                          </div>
+                        </div>
+                        <div className={style.userItem} key={'salaryId'}>
+                          <div className={style.calssfiy} style={{width: 'auto', marginLeft: '30px'}}>账期:</div>
+                          <div className={style.editValue}>
+                            <MonthPicker
+                              allowClear={false}
+                              style={{ width: 150 }}
+                              disabled={isLoadingDetail}
+                              value={detailSalary?.salaryId? moment(detailSalary?.salaryId) : undefined}
+                              format={'YYYY-MM'}
+                              placeholder="请选择账期"
+                              onChange={this.addSalaryMonth}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  }
+                  
                   <div className={style.classifyTitle}>工资构成</div>
                   <div className={style.addSalaryDom}>
                     {

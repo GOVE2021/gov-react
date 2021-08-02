@@ -41,3 +41,9 @@ export const updatePsd = (params) => {
 export const resetUserPsd = (params) => {
   return instance.POST('/api/employee/v1/profile/resetpassword', params);
 }
+/**
+ * 搜索人员信息
+ */
+ export const getPersonByKeywords = (params) => {
+  return instance.POST('/api/employee/v1/simple/list', params);
+}

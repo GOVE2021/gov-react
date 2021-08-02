@@ -154,7 +154,7 @@ class UserDetail extends Component {
                       onChange={(e, arr) => {
                         this.setNewItemData(item,{id:e, name: arr?.[0]||''});
                       }}
-                      searchPlaceholder={'请选择部门'}
+                      placeholder={'请选择部门'}
                     />
                   )
                 case 'beginWorkTime':

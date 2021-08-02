@@ -168,7 +168,7 @@ class salary extends Component {
       itemVisible,
       tableTitle,
     } = this.state;
-    const coulmnsData = userDetail?.roleType !== 1? [...TABLE_COMMEN_TITLE_LIST, ...tableTitle] : TABLE_COMMEN_TITLE_LIST;
+    const coulmnsData = userDetail?.roleType !== 1 ? [...TABLE_COMMEN_TITLE_LIST, ...tableTitle] : TABLE_COMMEN_TITLE_LIST;
     return (
       <div className={style.tableList}>
         <div className={style.selectBar}>
@@ -195,20 +195,22 @@ class salary extends Component {
             />
           </>}
           <MonthPicker
-            // disabledDate={disabledDate}
+            allowClear={false}
             value={moment(selectMounth || new Date(), 'YYYY/MM')}
             format={'YYYY-MM'}
             placeholder="请选择账期"
             style={{ marginLeft: 10,width: 120 }} 
             onChange={this.mounthChange}
           />
-          <Button
-            type="primary"
-            style={{marginLeft: 10}}
-            onClick={() => {
-              this.showItem(getAddSalaryDataList() || {})
-            }}
-          >添加薪资</Button>
+          {userDetail?.roleType !== 1 && 
+            <Button
+              type="primary"
+              style={{marginLeft: 10}}
+              onClick={() => {
+                this.showItem(getAddSalaryDataList() || {})
+              }}
+            >添加薪资</Button>
+          }
         </div>
         <ConfigProvider locale={zhCN}>
           <Table
@@ -241,6 +243,7 @@ class salary extends Component {
           itemVisible={itemVisible} 
           roleType={userDetail?.roleType}
           visibleChange={(boolean) => {
+            this.getListByParams();
             this.setState({
               itemVisible:boolean,
               itemData: {},

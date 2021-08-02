@@ -6,6 +6,7 @@ import {
   deleteUser,
   updatePsd,
   resetUserPsd,
+  getPersonByKeywords,
 } from "../services/userApi";
 import { getDepartmentList } from '../services/department';
 export default({
@@ -91,7 +92,11 @@ export default({
       return data;
     },
     *resetUserPsd({ payload }, { call, put }){
-      const{ data } = yield call(resetUserPsd, payload);
+      const { data } = yield call(resetUserPsd, payload);
+      return data;
+    },
+    *getPersonByKeywords({ payload }, { call, put }){
+      const { data } = yield call(getPersonByKeywords, payload);
       return data;
     }
   }
