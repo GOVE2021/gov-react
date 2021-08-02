@@ -6,17 +6,36 @@
 .tableList{
   min-width: 800px;
 }
+.modal{
+  width: 750px!important;
+}
+.modal .ant-modal-body{
+  padding: 0;
+}
 .salaryDetailModal{
-  height: 400px;
+  height: 500px;
   overflow: auto;
+  padding: 0 20px;
 }
 .classifyTitle{
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   padding: 20px 0 5px 0;
 }
 .modalFooter{
   width: 100%;
+  display: flex;
+}
+.modalFooter .nextOrPre{
+   width: 50%;
+   flex: 1;
+   display: flex;
+   display: flex;
+   flex-direction: row;
+ }
+.modalFooter .btnList {
+  width: 50%;
+  flex: 1;
 }
 .spinDom{
   width: 100%;
@@ -42,8 +61,8 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid gray;
-  border-radius: 11px;
+  border: 1px dashed gray;
+  border-radius: 10px;
   padding: 15px 0;
 }
 .userItem{
@@ -68,8 +87,10 @@
   padding-left: 0;
 }
 .countSalary{
-  padding: 10px 130px;
+  padding: 15px 130px;
   font-size: 20px;
+  border: 1px dashed gray;
+  border-radius: 10px;
 }
 /*********** end **********/
 .handleCss{

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Table, Input, DatePicker, TreeSelect, Icon, ConfigProvider, Pagination, message } from 'antd';
+import { Table, Input, DatePicker, Button, TreeSelect, Icon, ConfigProvider, Pagination, message } from 'antd';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import ItemSalary from './ItemSalary';
-import { TABLE_COMMEN_TITLE_LIST } from './cont';
+import { TABLE_COMMEN_TITLE_LIST, getAddSalaryDataList } from './cont';
 import zhCN from 'antd/es/locale/zh_CN'; 
 import style from './style.css';
 
@@ -202,6 +202,13 @@ class salary extends Component {
             style={{ marginLeft: 10,width: 120 }} 
             onChange={this.mounthChange}
           />
+          <Button
+            type="primary"
+            style={{marginLeft: 10}}
+            onClick={() => {
+              this.showItem(getAddSalaryDataList() || {})
+            }}
+          >添加薪资</Button>
         </div>
         <ConfigProvider locale={zhCN}>
           <Table
@@ -234,7 +241,10 @@ class salary extends Component {
           itemVisible={itemVisible} 
           roleType={userDetail?.roleType}
           visibleChange={(boolean) => {
-            this.setState({itemVisible:boolean});
+            this.setState({
+              itemVisible:boolean,
+              itemData: {},
+            });
           }}
         />}
       </div>

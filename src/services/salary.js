@@ -8,8 +8,8 @@ export const salaryList = (params) => {
  * 获取薪资详情
  * @returns JSON
  */
-export const salaryDetail = () => {
-  return instance.POST('/api/salary/detail');
+export const salaryDetail = (params) => {
+  return instance.POST('/api/salary/v1/profile', params);
 }
 /**
  * 修改薪资详情

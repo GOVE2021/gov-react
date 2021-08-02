@@ -10,7 +10,6 @@ export default({
   state:{
     salaryList:[],
     salaryListLoading: false,
-    isDetailLoading: false,
     salaryDetail: {},
   },
   reducers:{
@@ -27,18 +26,6 @@ export default({
         salaryListLoading:true
       }
     },
-    setDetailLoading(state, { payload }) {
-      return {
-        ...state,
-        isDetailLoading: payload
-      }
-    },
-    setDetail(state, { payload }) {
-      return {
-        ...state,
-        salaryDetail: payload,
-      }
-    }
   },
   effects:{
     *getList({ payload }, { call, put }) {
@@ -52,12 +39,8 @@ export default({
       }
     },
     *getSalaryDetail({ payload }, { call, put }) {
-      yield put({ type:'setDetailLoading', payload: true });
-      const { data: { data, code } = {} } = yield call(salaryDetail);
-      if(code === 200) {
-        yield put({ type: 'setDetail', payload:  data})
-        yield put({ type: 'setDetailLoading', payload:  false})
-      }
+      const { data } = yield call(salaryDetail, payload);
+      return data;
     },
     *updateSalaryData({ payload }, { call, put }) {
       const { data } = yield call(updateSalaryData, payload);

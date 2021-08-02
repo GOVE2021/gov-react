@@ -63,6 +63,7 @@ class ownSalary extends Component {
           </div>
           <div>月工资</div>
         </div>
+        
         <DateModal
           visible={visible}
           value={defDateStr}

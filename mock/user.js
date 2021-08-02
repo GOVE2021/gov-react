@@ -24,6 +24,7 @@ const responseData = () => {
           'employeeStatus|1': [1,2],
           'employeeType': 1, // 人员身份
           'beginWorkTime': '@date("yyyy-MM-dd")',
+          'departmentName': '临时工部门',
           "department":{
             'id':4,
             'name': '临时工部门',

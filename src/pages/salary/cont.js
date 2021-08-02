@@ -1,3 +1,4 @@
+export const ADD_TYPE = 'add';
 // 表格头
 export const TABLE_COMMEN_TITLE_LIST = [
   {
@@ -76,8 +77,8 @@ export const ADD_SALARY_MAP = {
   'otherAllowance': '其他',
 }
 /**
-  * 代扣项目信息
-  */
+ * 代扣项目信息
+ */
 export const REDUCE_SALARY_MAP = {
 'pension': '养老金',
 'occupationalAnnuity': '职业年金',
@@ -85,4 +86,14 @@ export const REDUCE_SALARY_MAP = {
 'personalTax': '个税',
 'medicalInsurance': '医疗保险',
 'otherWithhold': '其他',
+}
+
+export const getAddSalaryDataList = () => {
+  const sourceData = { ...ADD_SALARY_MAP, ...REDUCE_SALARY_MAP};
+  let newData = {};
+  Object.keys(sourceData).forEach((key) => {
+    newData[key] = '';
+  });
+  newData['id'] = ADD_TYPE;
+  return newData;
 }
