@@ -48,10 +48,3 @@ export const TABLE_COMMEN_TITLE_LIST = [
     render: (e) => showTextString(e, ROLE_LIST_MAP)
   },
 ];
-export const getDepartmentIds = (arr) => {
-  let idsArr = [];
-  (arr || []).forEach((k, i) => {
-    idsArr.push(k?.id||'')
-  });
-  return idsArr;
-}

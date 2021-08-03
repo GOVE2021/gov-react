@@ -56,7 +56,7 @@ class users extends Component {
       payload: {
         pageSize,
         pageNum,
-        departmentIds: selectDpartment,
+        departmentIds: (selectDpartment || []).map(k => k?.value),
         keyWords: selectName,
       },
     });
@@ -246,6 +246,8 @@ class users extends Component {
           <TreeSelect
             allowClear
             multiple
+            labelInValue={true}
+            treeCheckStrictly={true}
             treeData={departmentList}
             value={selectDpartment}
             dropdownClassName={style.dropdownClass}

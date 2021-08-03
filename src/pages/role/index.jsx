@@ -1,8 +1,8 @@
 import React,{ Component } from 'react';
 import { connect } from 'dva';
 import { Modal, Table, Select, TreeSelect, Input, Icon, ConfigProvider, Pagination, message } from 'antd';
-import { ROLE_LIST_MAP } from '../utils';
-import { TABLE_COMMEN_TITLE_LIST, getDepartmentIds } from './cont'
+import { ROLE_LIST_MAP, transDepartmentIds } from '../utils';
+import { TABLE_COMMEN_TITLE_LIST } from './cont'
 import zhCN from 'antd/es/locale/zh_CN'; 
 
 import style from './style.css';
@@ -55,7 +55,7 @@ class department extends Component {
       payload: {
         keywords: keywords,
         roleId: selectRoleValue, 
-        departmentIds: selectDepartIds,  
+        departmentIds: (selectDepartIds || []).map(k => k?.value),  
         pageSize,
         pageNum,
       },
@@ -75,7 +75,7 @@ class department extends Component {
             itemData: item,
             visible: true,
             editRoleValue: item?.roleId,
-            selectDpartment: getDepartmentIds(item?.departments),
+            selectDpartment: transDepartmentIds(item?.departments),
           })
         }}
       >
@@ -96,8 +96,8 @@ class department extends Component {
       type: 'Role/editRole',
       payload: {
         "roleId": editRoleValue,
-        "userId":itemData?.userId,
-        "departmentIds":selectDpartment,
+        "userId": itemData?.userId,
+        "departmentIds": (selectDpartment || []).map(k=> k?.value),
       }
     }).then(({ code, msg }) => {
       if (code === 200) {
@@ -212,6 +212,7 @@ class department extends Component {
       selectDepartIds,
       titleArray,
     } = this.state;
+
     return <div className={style.content}>
       <div className={style.selectBar}>
         <Input
@@ -241,6 +242,8 @@ class department extends Component {
           allowClear
           multiple
           treeData={departmentList}
+          labelInValue={true}
+          treeCheckStrictly={true}
           value={selectDepartIds}
           dropdownClassName={style.dropdownClass}
           onChange={this.onSelectDepartmentChange}
@@ -310,6 +313,8 @@ class department extends Component {
               <TreeSelect
                 allowClear
                 multiple
+                labelInValue={true}
+                treeCheckStrictly={true}
                 treeDefaultExpandAll={true}
                 getPopupContainer={(reactNode) => reactNode}
                 dropdownClassName={style.dropdownClass}
@@ -319,7 +324,7 @@ class department extends Component {
                 treeCheckable={true}
                 treeNodeLabelProp={'departmentName'}
                 showCheckedStrategy={'SHOW_PARENT'}
-                searchPlaceholder={'按部门搜索'}
+                placeholder={'按部门搜索'}
                 style={{width: 200 }}
                 suffixIcon={<Icon type="search" />}
               />

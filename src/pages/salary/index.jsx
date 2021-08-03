@@ -49,7 +49,7 @@ class salary extends Component {
       payload: {
         salaryId: selectMounth, // 账期
         condition: selectName || '', // 关键字
-        departmentIds: selectDpartment || [], // 部门
+        departmentIds: (selectDpartment || []).map(k => k.value), // 部门
         pageNum,
         pageSize,
       },
@@ -184,6 +184,8 @@ class salary extends Component {
             <TreeSelect
               allowClear
               multiple
+              labelInValue={true}
+              treeCheckStrictly={true}
               treeData={departmentList}
               value={selectDpartment}
               onChange={this.onDepartmentChange}

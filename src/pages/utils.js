@@ -307,3 +307,19 @@ export const showTextString = (key,list) => {
   const dataItem = (list || []).find(n => Number(n.key) === Number(key)) || {};
   return dataItem?.title || dataItem?.name || '-';
 }
+/**
+ * 转换部门数据
+ * @param {Array} arr 
+ * @returns 
+ */
+export const transDepartmentIds = (arr) => {
+  let idsArr = [];
+  (arr || []).forEach((k, i) => {
+    // idsArr.push(k?.id||'')
+    idsArr.push({
+      label: k?.name,
+      value: k?.id,
+    })
+  });
+  return idsArr;
+}

@@ -47,7 +47,35 @@ const treeData = {
             "value": 4,
             "key": "0-2",
             "employeeNums": null,
-            "children": []
+            "children": [
+                {
+                    "departmentName": "test2",
+                    "id": 41,
+                    "title": "test2",
+                    "value": 41,
+                    "key": "0-2-0",
+                    "employeeNums": null,
+                    "children": [
+                        {
+                            "departmentName": "test1",
+                            "id": 42,
+                            "title": "test1",
+                            "value": 42,
+                            "key": "0-2-0-0",
+                            "employeeNums": null,
+                            "children": []
+                        },{
+                            "departmentName": "test1",
+                            "id": 43,
+                            "title": "test1",
+                            "value": 43,
+                            "key": "0-2-0-1",
+                            "employeeNums": null,
+                            "children": []
+                        },
+                    ]
+                },
+            ]
         },
         {
             "departmentName": "绥德县人民法院",
