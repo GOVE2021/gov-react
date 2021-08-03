@@ -137,7 +137,7 @@ export default {
   'POST /api/salary/v1/profile':  (req, res)=>{
     setTimeout(() => {  //延时
       res.status(200).send({ code: 200, msg: 'ok', data: userSalaryDetail() }); //status中输入想要返回的状态码，send中为返回的data
-    },300);
+    },500);
   },
   'POST /api/salary/v1/profile/edit': (req, res) => {
     setTimeout(() => {  //延时

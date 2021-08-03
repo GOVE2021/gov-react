@@ -12,8 +12,8 @@
   margin:  -25px 0 0 -12px;
 }
 .H5Dom .userBg{
-  width: 100%;
-  height: auto;
+  width: 100vw;
+  height: 150px;
   /* opacity:0.8; */
 }
 .userInfo{
@@ -59,17 +59,17 @@
   color: rgba(255, 255, 255, 0.7);
 }
 /************ 工资明细 css ************/
-.salaryInfo{
+.salaryInfoSelect{
   display: flex;
   padding: 20px 10px;
 }
-.salaryInfo .salaryDate{
+.salaryInfoSelect .salaryDate{
   padding: 0 12px 0 10px;
   margin: 0 10px;
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 4px;
 }
-.salaryInfo .selectAfter{
+.salaryInfoSelect .selectAfter{
   width: 10px;
   display: inline-block;
   height: 10px;
@@ -79,5 +79,66 @@
   position: relative;
   top: 3px;
   left: 4px;
+}
+/**
+ *  明细
+ */
+.salaryList {
+  width: 100%;
+  height: calc(100vh - 215px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0 50px 0;
+  color: #000;
+}
+.groupTitle{
+  width: 100%;
+  height: 24px;
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+  margin: 10px 0;
+}
+.groupTitle:nth-child(1){
+  margin-top: 5px;
+}
+.groupTitle .line{
+  width: 100%;
+  height: 12px;
+  padding-top: 12px;
+  border-bottom: 1px solid silver;
+}
+.groupTitle .text{
+  font-weight: 600;
+  width: 100px;
+  height: 24px;
+  padding: 5px 0;
+  line-height: 14px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: silver;
+  border-radius: 13px;
+}
+.countCount{
+  width: 100%;
+  font-size: 15px;
+  text-align: center;
+  padding: 10px;
+}
+.salaryItem{
+  display: flex;
+  width: 100%;
+}
+.salaryItem .label{
+  width: 60%;
+  flex: 1;
+  text-align: right;
+  padding: 10px;
+}
+.salaryItem .value{
+  width: 40%;
+  flex: 1;
+  padding: 10px;
 }
 /************* end ************/

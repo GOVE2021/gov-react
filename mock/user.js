@@ -50,6 +50,7 @@ const detailData = {
   code: 200,
   status: 'ok',
   data:{
+    userId: 1,
     realname: '哈哈哈·买买提',
     roleType: 3,
     departmentName: '临时工部门',

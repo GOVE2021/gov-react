@@ -65,7 +65,7 @@ export default({
       }
     },
     *getDetail(_, { call, put }){
-      const { data :{ data, code } } = yield call(getDetail);
+      const { data :{ data, code, msg } } = yield call(getDetail);
       if(code === 200){
         yield put({
           type:"setUserDetail",
@@ -73,7 +73,7 @@ export default({
         })
         sessionStorage.setItem('login_user_key', JSON.stringify(data?.roleType));
       }
-      return { data, code };
+      return { code, msg };
     },
     *editUserDetail({ payload }, { call, put }){
       const { data } = yield call(editUserDetail, payload);
