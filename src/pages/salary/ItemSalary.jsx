@@ -387,18 +387,31 @@ class ItemSalary extends Component {
                   <div className={style.classifyTitle}>工资构成</div>
                   <div className={style.addSalaryDom}>
                     {
-                      isEdit? this.renderSalaryForm(ADD_SALARY_MAP,detailSalary) : this.renderSalaryShowDom(ADD_SALARY_MAP,detailSalary)
+                      isEdit ? this.renderSalaryForm(ADD_SALARY_MAP,detailSalary) : this.renderSalaryShowDom(ADD_SALARY_MAP,detailSalary)
                     }
                   </div>
                 
                   <div className={style.classifyTitle}>代扣项目</div>
                   <div className={style.addSalaryDom}>
                     {
-                      isEdit? this.renderSalaryForm(REDUCE_SALARY_MAP,detailSalary) : this.renderSalaryShowDom(REDUCE_SALARY_MAP,detailSalary)
+                      isEdit ? this.renderSalaryForm(REDUCE_SALARY_MAP,detailSalary) : this.renderSalaryShowDom(REDUCE_SALARY_MAP,detailSalary)
                     }
                   </div>
                   <div className={style.classifyTitle}>实发工资</div>
-                  <div className={style.countSalary}>{`${detailSalary?.payment ? detailSalary?.payment + '元' : ''}`}</div>
+                  <div className={style.countSalary}>
+                    {
+                      isEdit ? 
+                        <Input
+                          value={detailSalary?.payment || ''}
+                          placeholder={'请输入金额'}
+                          onChange={(e) => {
+                            this.setNewItemData('payment', e?.target?.value || '')
+                          }}
+                        />
+                      :
+                      (`${detailSalary?.payment ? detailSalary?.payment + '元' : ''}`)
+                    }
+                  </div>
                 </div>
               )
             })()}
