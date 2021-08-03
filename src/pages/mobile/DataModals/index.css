@@ -9,7 +9,7 @@
   /* pointer-events: none; */
 }
 .modal{
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   background-color: #FFF;
   height: 300px;
