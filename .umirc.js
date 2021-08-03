@@ -5,6 +5,8 @@ export default {
   minimizer: 'terserjs',
   treeShaking: true,
   history:'hash',
+  base: './',
+  publicPath: './',
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {

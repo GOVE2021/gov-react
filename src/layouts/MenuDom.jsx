@@ -52,11 +52,11 @@ class MenuDom extends Component {
         <Layout style={{paddingTop: 64}}>
           <Sider
             className={styles.lefBar}
-            theme="light"
+            theme="dark"
             width={180}
           >
             {/* <div className="logo" /> */}
-            <Menu theme="light" mode="inline" selectedKeys={[selectKey.toString()]}>
+            <Menu theme="dark" mode="inline" selectedKeys={[selectKey.toString()]}>
                 {menuList.map((k, i) => {
                   if(!k.role.includes(userDetail?.roleType)){
                     return null;

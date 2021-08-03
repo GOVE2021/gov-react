@@ -18,6 +18,7 @@ class ownSalary extends Component {
       oldPsd: '',
       firstPsd: '',
       secondPsd: '',
+      detailSalary: '',
     }
   }
   componentDidMount () {
@@ -32,7 +33,30 @@ class ownSalary extends Component {
       }
     });
   }
-  clickDataModal =() => {
+  /**
+   * 获取薪资详情
+   */
+  getSalaryDetail = (userId, salaryId) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'Salary/getSalaryDetail',
+      payload: { 
+        "userId": userId,
+        "salaryId": salaryId,
+      },
+    }).then(({ code, msg, data }) => {
+      this.setState({ isLoadingDetail: false });
+      if (code === 200){
+        data.salaryId = salaryId;
+        data.userId = userId;
+        this.setState({ detailSalary: data || {} });
+      }else{
+        message.error(msg);
+        this.setState({ detailSalary: {} });
+      }
+    })
+  }
+  clickDataModal = () => {
     this.setState({ visible: true });
   }
   render () {
