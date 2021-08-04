@@ -25,6 +25,9 @@
   font-weight: 600;
   padding: 20px 0 5px 0;
 }
+.classifyTitle:nth-child(1){
+  padding-top: 0
+}
 .modalFooter{
   width: 100%;
   display: flex;

@@ -211,11 +211,12 @@ class ItemSalary extends Component {
    */
   addSalaryData = () => {
     const { detailSalary, selectPersonId } = this.state;
-    delete detailSalary.id;
-    detailSalary.userId = selectPersonId;
+    const subData = JSON.parse(JSON.stringify(detailSalary));
+    delete subData.id;
+    subData.userId = selectPersonId;
     this.props.dispatch({
       type: 'Salary/addSalaryData',
-      payload: detailSalary,
+      payload: subData,
     }).then(({ code, msg }) => {
       if(code === 200){
         this.setState({ selectPersonId: null })
@@ -355,6 +356,7 @@ class ItemSalary extends Component {
                               loading={psrsonListLoading}
                               filterOption={false}
                             >{
+                              personList.length?
                               personList.map(item => {
                                 return <Option value={item.userId} label={item.realname} text={item?.realname}>
                                   <div style={{fontSize: 14}}>{item?.realname || '-'}</div>
@@ -362,6 +364,7 @@ class ItemSalary extends Component {
                                   <div style={{fontSize: 12,color: 'gray'}}>{item?.idNo}</div>
                                 </Option>
                               })
+                              :<Option value="disabled" disabled >无结果</Option>
                             }
                             </Select>
                           </div>
