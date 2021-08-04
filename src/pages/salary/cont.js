@@ -12,8 +12,10 @@ const transAddDom = (k) => {
 const allPayDom  =  (k) => { 
   return <span style={{ color: 'DarkGreen' }}>{k || '--'}</span>
 }
-// 表格头
-export const TABLE_COMMEN_TITLE_LIST = [
+/** 
+ * 基本信息表格头
+ * */ 
+export const BASE_TITLE_LIST = [
   {
     title: '姓名',
     dataIndex: 'realname',
@@ -48,6 +50,11 @@ export const TABLE_COMMEN_TITLE_LIST = [
     width: 120,
     render: allPayDom,
   },
+]
+/**
+ * 在职员工表头
+ */
+export const IN_WORK_TITLE_LIST = [
   {
     title: '职务岗位工资(¥)',
     dataIndex: 'dutySalary',
@@ -266,6 +273,81 @@ export const TABLE_COMMEN_TITLE_LIST = [
     render: transDeductDom,
   },
 ];
+/**
+ * 退休人员表头
+ */
+export const OUT_WORK_TITLE_LIST = [
+  {
+    dataIndex: 'pension',
+    title: '基础养老',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'personalPension',
+    title: '个人账户养老',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'transitionalPension',
+    title: '过渡性养老',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'basePension',
+    title: '基本养老金',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'subsidyTotal',
+    title: '补贴总',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'lifeSubsidy',
+    title: '生活补',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'reformSubsidy',
+    title: '改革性补',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'financeSubsidy',
+    title: '财政代发金',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'retainedAllowance',
+    title: '保留地区补贴',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'withholding',
+    title: '补扣',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+]
 /**
 * 工资基本信息构成
 */

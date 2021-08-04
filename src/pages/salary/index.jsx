@@ -15,7 +15,7 @@ import {
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import ItemSalary from './ItemSalary';
-import { TABLE_COMMEN_TITLE_LIST, ADD_TYPE } from './cont';
+import { BASE_TITLE_LIST, IN_WORK_TITLE_LIST, OUT_WORK_TITLE_LIST, ADD_TYPE } from './cont';
 import { PERSON_TYPE_LIST } from '../utils';
 import zhCN from 'antd/es/locale/zh_CN'; 
 import style from './style.css';
@@ -223,7 +223,9 @@ class salary extends Component {
       tableTitle,
       selectEmployeeStatus,
     } = this.state;
-    const coulmnsData = userDetail?.roleType !== 1 ? [...TABLE_COMMEN_TITLE_LIST, ...tableTitle] : TABLE_COMMEN_TITLE_LIST;
+    
+    const employTitleList = selectEmployeeStatus === PERSON_TYPE_LIST[0].key ? IN_WORK_TITLE_LIST : OUT_WORK_TITLE_LIST;
+    const coulmnsData = userDetail?.roleType !== 1 ? [...BASE_TITLE_LIST, ...employTitleList, ...tableTitle] : [...BASE_TITLE_LIST, ...employTitleList];
     return (
       <div className={style.tableList}>
         <div className={style.selectBar}>
@@ -280,7 +282,6 @@ class salary extends Component {
                 }}
               >添加薪资</Button>
             </>
-            
           }
         </div>
         <ConfigProvider locale={zhCN}>
