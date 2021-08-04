@@ -29,8 +29,8 @@
   width: 100%;
   flex: 1;
 }
-.modalLine .dropdownClass{
-  z-index: 99;
+.dropdownClass{
+  z-index: 9999!important;
 }
 .rootTips{
   margin: 25px 0 0 100px;

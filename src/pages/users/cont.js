@@ -1,9 +1,9 @@
 import {
   EDU_BG_LIST,
   SEX_LIST,
-  DUTY_LIST,
+  // DUTY_LIST,
   PERSON_TYPE_LIST,
-  PERSON_STATUE_LIST,
+  // PERSON_STATUE_LIST,
   showTextString,
 } from '../utils';
 
@@ -62,12 +62,13 @@ export const USER_TABLE_DEFU_ARR = [
     title: '身份证号码',
     dataIndex: 'idNo',
     align: 'center',
-    width: 150,
+    width: 200,
   },
   {
     title: '单位',
     dataIndex: 'departmentName',
     align: 'center',
+    ellipsis: true,
     width: 200,
   },
   {
@@ -75,7 +76,13 @@ export const USER_TABLE_DEFU_ARR = [
     dataIndex: 'employeeStatus',
     align: 'center',
     width: 80,
-    render: (i) => showTextString(i, PERSON_TYPE_LIST),
+    render: (i) => {
+      const showStr = showTextString(i, PERSON_TYPE_LIST);
+      if(i === PERSON_TYPE_LIST[0].key){
+        return <span style={{color: 'Green'}}>{showStr}</span>
+      }
+      return <span style={{color: 'LightCoral '}}>{showStr}</span>
+    }
   },
   // {
   //   title: '人员身份',
@@ -98,13 +105,13 @@ export const USER_TABLE_DEFU_ARR = [
     title: '出生年月',
     dataIndex: 'birthday',
     align: 'center',
-    width: 100,
+    width: 150,
   },
   {
     title: '参加工作时间',
     dataIndex: 'beginWorkTime',
     align: 'center',
-    width: 100,
+    width: 150,
   },
   {
     title: '学历',

@@ -14,7 +14,7 @@ const responseData = () => {
       'lastPage': 0,
       'list|10': [
         {
-          'id': 1,
+          'id': '@integer(2442343213,4213412412)',
           'realname': '@cname',
           'idNo': '@integer(2442343213,4213412412)',
           'dutyId': '@integer(1, 8)',// 职务/职称
@@ -50,13 +50,45 @@ const detailData = {
   code: 200,
   status: 'ok',
   data:{
-    userId: 1,
+    id: 1,
     realname: '哈哈哈·买买提',
     roleType: 3,
     departmentName: '临时工部门',
     address: '云南省 保山市 施甸县',
+    employeeStatus: 2,
   },
 };
+
+const userSelectList = () => {
+  return Mock.mock({
+    'endRow': 1,
+    'hasNextPage': false,
+    'hasPreviousPage': false,
+    'isFirstPage': true,
+    'isLastPage': true,
+    'list|10': [
+      {
+        'departmentName': "绥德县一城四创工作领导小组办公室",
+        'idNo': "632323190605266400",
+        'employeeStatus|1': [1,2],
+        'userId': '@integer(2442343213,4213412412)',
+        'realname': '@cname',
+      }
+    ],
+    'navigateFirstPage': 1,
+    'navigateLastPage': 1,
+    'navigatePages': 8,
+    'navigatepageNums': [1],
+    'nextPage': 0,
+    'pageNum': 1,
+    'pageSize': 2,
+    'pages': 1,
+    'prePage': 0,
+    'size': 2,
+    'startRow': 0,
+    'total': 300,
+  });
+}
 
 export default {
   // 支持值为 Object 和 Array
@@ -86,4 +118,15 @@ export default {
       res.status(200).send({code: 200, msg: '操作成功', data: {}}); //status中输入想要返回的状态码，send中为返回的data
     },300);
   },
+  'POST /api/salary/v1/profile/add': (req, res)=>{
+    setTimeout(() => {  //延时
+      res.status(200).send({code: 200, msg: '操作成功', data: {}}); //status中输入想要返回的状态码，send中为返回的data
+    },300);
+  },
+  'POST /api/employee/v1/simple/list': (req, res) => {
+    setTimeout(() => {  //延时
+      res.status(200).send({code: 200, msg: '操作成功', data: userSelectList() }); //status中输入想要返回的状态码，send中为返回的data
+    },300);
+
+  }
 }

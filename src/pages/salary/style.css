@@ -6,6 +6,9 @@
 .tableList{
   min-width: 800px;
 }
+.dropdownClass{
+  z-index: 9999!important;
+}
 .modal{
   width: 750px!important;
 }
@@ -50,7 +53,9 @@
   top: 50%;
   margin-top: -30px;
 }
-
+.radioEmploy{
+  padding: 5px 18px;
+}
 .bottomBar{
   position: relative;
   width: 100%;

@@ -1,3 +1,6 @@
+import { PERSON_TYPE_LIST } from '../utils';
+
+
 export const ADD_TYPE = 'add';
 const transDeductDom = (k) => {
   const showStr = k ? '-' + k : '--';
@@ -297,20 +300,39 @@ export const ADD_SALARY_MAP = {
  * 代扣项目信息
  */
 export const REDUCE_SALARY_MAP = {
-'pension': '养老金',
-'occupationalAnnuity': '职业年金',
-'housingFund': '住房公积金',
-'personalTax': '个税',
-'medicalInsurance': '医疗保险',
-'otherWithhold': '其他',
+  'pension': '养老金',
+  'occupationalAnnuity': '职业年金',
+  'housingFund': '住房公积金',
+  'personalTax': '个税',
+  'medicalInsurance': '医疗保险',
+  'otherWithhold': '其他',
 }
+/**
+ * 退休人员薪资
+ */
+ export const OLD_WORKER_SALARY_MAP = {
+  // 'id': '薪资ID',
+  // 'userId': '员工ID',
+  // 'payment': '实发金',
+  // 'salaryId': '薪资账期',
+  'pension': '基础养老',
+  'personalPension': '个人账户养老',
+  'transitionalPension': '过渡性养老',
+  'basePension': '基本养老金',
+  'subsidyTotal': '补贴总',
+  'lifeSubsidy': '生活补',
+  'reformSubsidy': '改革性补',
+  'financeSubsidy': '财政代发金',
+  'retainedAllowance': '保留地区补贴',
+  'withholding': '补扣',
+};
 
-export const getAddSalaryDataList = () => {
-  const sourceData = { ...ADD_SALARY_MAP, ...REDUCE_SALARY_MAP};
+export const getAddSalaryDataList = (e) => {
+  const sourceData = PERSON_TYPE_LIST[1].key === e ? OLD_WORKER_SALARY_MAP : { ...ADD_SALARY_MAP, ...REDUCE_SALARY_MAP};
   let newData = {};
   Object.keys(sourceData).forEach((key) => {
     newData[key] = '';
   });
-  newData['id'] = ADD_TYPE;
+  newData['userId'] = ADD_TYPE;
   return newData;
 }

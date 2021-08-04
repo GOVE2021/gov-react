@@ -68,9 +68,12 @@ class UserDetail extends Component {
                       onChange={e => this.setNewItemData(item, e)}
                     >
                       {
-                        (DUTY_LIST?.[statueObj?.subKey] || []).map(item => {
-                          return <Option value={item.key}>{item.title}</Option>
-                        })
+                        (statueObj?.subKey) ?
+                          (DUTY_LIST?.[statueObj?.subKey] || []).map(item => {
+                            return <Option value={item.key}>{item.title}</Option>
+                          })
+                        :
+                          <Option value="disabled" disabled >请先选择人员身份</Option>
                       }
                     </Select>
                   );

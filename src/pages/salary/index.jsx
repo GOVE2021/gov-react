@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Table, Input, DatePicker, Button, TreeSelect, Icon, ConfigProvider, Pagination, message } from 'antd';
+import {
+  Table,
+  Input,
+  Radio,
+  DatePicker,
+  Button,
+  TreeSelect,
+  Icon,
+  ConfigProvider,
+  Pagination,
+  message
+} from 'antd';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import ItemSalary from './ItemSalary';
-import { TABLE_COMMEN_TITLE_LIST, getAddSalaryDataList } from './cont';
+import { TABLE_COMMEN_TITLE_LIST, ADD_TYPE } from './cont';
+import { PERSON_TYPE_LIST } from '../utils';
 import zhCN from 'antd/es/locale/zh_CN'; 
 import style from './style.css';
 
@@ -18,10 +30,12 @@ class salary extends Component {
     this.state = {
       selectDpartment: null, // 部门关键字
       selectName: null, // 姓名关键字
+      selectEmployeeStatus: null, // 搜索员工状态
       selectMounth:  moment().format('YYYY-MM'), // 月份筛选
       itemVisible: false, // 显示个人薪资
       pageSize: 10,
       pageNum: 1,
+      loginUserId: null, // 登陆账号id
       tableTitle: [// 表格操作栏
         {
           title: '账号操作',
@@ -35,21 +49,52 @@ class salary extends Component {
   }
 
   componentDidMount() {
-    this.getListByParams();
-    this.props.dispatch({
+    const { dispatch } = this.props;
+    dispatch({
       type: 'Department/getDepartmentList',
       payload: {},
     });
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { userDetail, dispatch } = nextProps
+    const {
+      loginUserId, 
+      pageNum,
+      pageSize,
+      selectDpartment,
+      selectName,
+      selectMounth
+    } = prevState;
+    if (userDetail?.id !== loginUserId && userDetail?.id) {
+      dispatch({
+        type: 'Salary/getList',
+        payload: {
+          salaryId: selectMounth, // 账期
+          condition: selectName || '', // 关键字
+          departmentIds: (selectDpartment || []).map(k => k.value), // 部门
+          employeeStatus: userDetail?.employeeStatus,
+          pageNum,
+          pageSize,
+        },
+      });
+      return {
+        selectEmployeeStatus: userDetail?.employeeStatus,
+        loginUserId: userDetail?.id,
+      };
+    }
+  }
+
   getListByParams = () => {
     const { dispatch } = this.props;
-    const { pageNum, pageSize, selectMounth, selectName, selectDpartment } = this.state;
+    const { pageNum, pageSize, selectMounth, selectName, selectDpartment, selectEmployeeStatus } = this.state;
     dispatch({
       type: 'Salary/getList',
       payload: {
         salaryId: selectMounth, // 账期
         condition: selectName || '', // 关键字
         departmentIds: (selectDpartment || []).map(k => k.value), // 部门
+        employeeStatus: selectEmployeeStatus,
         pageNum,
         pageSize,
       },
@@ -85,6 +130,15 @@ class salary extends Component {
     this.setState({ selectMounth: moment(value).format('YYYY-MM') }, () => {
       this.getListByParams();
     })
+  }
+  /**
+   * 员工在职/退休状态改变
+   * @param {Number} value 
+   */
+  employeeStatusChange = (value) =>{
+    this.setState({ selectEmployeeStatus: value?.target?.value }, () => {
+      this.getListByParams();
+    });
   }
   /**
    * 查看单个人的薪资
@@ -167,6 +221,7 @@ class salary extends Component {
       itemData,
       itemVisible,
       tableTitle,
+      selectEmployeeStatus,
     } = this.state;
     const coulmnsData = userDetail?.roleType !== 1 ? [...TABLE_COMMEN_TITLE_LIST, ...tableTitle] : TABLE_COMMEN_TITLE_LIST;
     return (
@@ -184,16 +239,17 @@ class salary extends Component {
             <TreeSelect
               allowClear
               multiple
+              showSearch={false}
               labelInValue={true}
               treeCheckStrictly={true}
               treeData={departmentList}
               value={selectDpartment}
+              dropdownClassName={style.dropdownClass}
               onChange={this.onDepartmentChange}
               treeCheckable={true}
-              showCheckedStrategy={'SHOW_PARENT'}
-              searchPlaceholder={'按部门搜索'}
+              // showCheckedStrategy={'SHOW_PARENT'}
+              placeholder={'按部门搜索'}
               style={{width: 200, marginLeft: 10}}
-              suffixIcon={<Icon type="search" />}
             />
           </>}
           <MonthPicker
@@ -201,17 +257,30 @@ class salary extends Component {
             value={moment(selectMounth || new Date(), 'YYYY/MM')}
             format={'YYYY-MM'}
             placeholder="请选择账期"
+            dropdownClassName={style.dropdownClass}
             style={{ marginLeft: 10,width: 120 }} 
             onChange={this.mounthChange}
           />
           {userDetail?.roleType !== 1 && 
-            <Button
-              type="primary"
-              style={{marginLeft: 10}}
-              onClick={() => {
-                this.showItem(getAddSalaryDataList() || {})
-              }}
-            >添加薪资</Button>
+            <>
+              <Radio.Group
+                className={style.radioEmploy}
+                onChange={this.employeeStatusChange}
+                value={selectEmployeeStatus}
+              >
+                {(PERSON_TYPE_LIST || []).map(item => {
+                  return <Radio value={item.key}>{item.title}</Radio>
+                })}
+              </Radio.Group>
+              <Button
+                type="primary"
+                style={{marginLeft: 10}}
+                onClick={() => {
+                  this.showItem({ userId: ADD_TYPE })
+                }}
+              >添加薪资</Button>
+            </>
+            
           }
         </div>
         <ConfigProvider locale={zhCN}>

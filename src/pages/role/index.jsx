@@ -241,6 +241,7 @@ class department extends Component {
         <TreeSelect
           allowClear
           multiple
+          showSearch={false}
           treeData={departmentList}
           labelInValue={true}
           treeCheckStrictly={true}
@@ -248,11 +249,10 @@ class department extends Component {
           dropdownClassName={style.dropdownClass}
           onChange={this.onSelectDepartmentChange}
           treeCheckable={true}
-          treeNodeLabelProp={'departmentName'}
-          showCheckedStrategy={'SHOW_PARENT'}
-          searchPlaceholder={'按部门搜索'}
+          // treeNodeLabelProp={'departmentName'}
+          // showCheckedStrategy={'SHOW_PARENT'}
+          placeholder={'按部门搜索'}
           style={{width: 200, marginLeft: 10}}
-          suffixIcon={<Icon type="search" />}
         />
       </div>
       <ConfigProvider locale={zhCN}>

@@ -246,6 +246,7 @@ class users extends Component {
           <TreeSelect
             allowClear
             multiple
+            showSearch={false}
             labelInValue={true}
             treeCheckStrictly={true}
             treeData={departmentList}
@@ -253,11 +254,10 @@ class users extends Component {
             dropdownClassName={style.dropdownClass}
             onChange={this.onDepartmentChange}
             treeCheckable={true}
-            treeNodeLabelProp={'departmentName'}
-            showCheckedStrategy={'SHOW_PARENT'}
-            searchPlaceholder={'按部门搜索'}
+            // treeNodeLabelProp={'departmentName'}
+            // showCheckedStrategy={'SHOW_PARENT'}
+            placeholder={'按部门搜索'}
             style={{width: 200, marginLeft: 10}}
-            suffixIcon={<Icon type="search" />}
           />
           <Button
             type="primary"
