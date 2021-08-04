@@ -43,6 +43,11 @@ export const BASE_TITLE_LIST = [
     align: 'center',
     width: 120,
   },
+]
+/**
+ * 在职员工表头
+ */
+export const IN_WORK_TITLE_LIST = [
   {
     dataIndex: 'payment',
     title: '实发工资(¥)',
@@ -50,11 +55,6 @@ export const BASE_TITLE_LIST = [
     width: 120,
     render: allPayDom,
   },
-]
-/**
- * 在职员工表头
- */
-export const IN_WORK_TITLE_LIST = [
   {
     title: '职务岗位工资(¥)',
     dataIndex: 'dutySalary',
@@ -278,22 +278,29 @@ export const IN_WORK_TITLE_LIST = [
  */
 export const OUT_WORK_TITLE_LIST = [
   {
+    dataIndex: 'payment',
+    title: '实发金额(¥)',
+    align: 'center',
+    width: 120,
+    render: allPayDom,
+  },
+  {
     dataIndex: 'pension',
-    title: '基础养老',
+    title: '基础养老金',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'personalPension',
-    title: '个人账户养老',
+    title: '个人账户养老金',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'transitionalPension',
-    title: '过渡性养老',
+    title: '过渡性养老金',
     align: 'center',
     width: 100,
     render: transAddDom,
@@ -307,28 +314,28 @@ export const OUT_WORK_TITLE_LIST = [
   },
   {
     dataIndex: 'subsidyTotal',
-    title: '补贴总',
+    title: '补贴总额',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'lifeSubsidy',
-    title: '生活补',
+    title: '生活补贴',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'reformSubsidy',
-    title: '改革性补',
+    title: '改革性补贴',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'financeSubsidy',
-    title: '财政代发金',
+    title: '财政代发金额',
     align: 'center',
     width: 100,
     render: transAddDom,
@@ -342,7 +349,7 @@ export const OUT_WORK_TITLE_LIST = [
   },
   {
     dataIndex: 'withholding',
-    title: '补扣',
+    title: '补扣发',
     align: 'center',
     width: 100,
     render: transAddDom,
@@ -397,13 +404,13 @@ export const REDUCE_SALARY_MAP = {
   // 'userId': '员工ID',
   // 'payment': '实发金',
   // 'salaryId': '薪资账期',
-  'pension': '基础养老',
-  'personalPension': '个人账户养老',
+  'pension': '基础养老金',
+  'personalPension': '个人账户养老金',
   'transitionalPension': '过渡性养老',
   'basePension': '基本养老金',
-  'subsidyTotal': '补贴总',
-  'lifeSubsidy': '生活补',
-  'reformSubsidy': '改革性补',
+  'subsidyTotal': '补贴总额',
+  'lifeSubsidy': '生活补贴',
+  'reformSubsidy': '改革性补贴',
   'financeSubsidy': '财政代发金',
   'retainedAllowance': '保留地区补贴',
   'withholding': '补扣',

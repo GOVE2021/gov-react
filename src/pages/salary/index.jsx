@@ -197,6 +197,7 @@ class salary extends Component {
       type: 'Salary/deleteSalaryData',
       payload: {
         id: item?.id || '',
+        employeeStatus: item?.employeeStatus || '',
       }
     }).then(({ code, msg }) => {
       if(code ===200){
