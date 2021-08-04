@@ -1,7 +1,7 @@
 
 .selectBar{
   display: flex;
-  padding: 10px 0 30px;
+  padding: 10px 0;
 }
 .tableList{
   min-width: 800px;

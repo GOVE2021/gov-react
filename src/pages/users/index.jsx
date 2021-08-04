@@ -237,7 +237,7 @@ class users extends Component {
         <div className={style.selectBar}>
           <Input
             allowClear
-            placeholder="按关键字搜索"
+            placeholder="按姓名/身份证号搜索"
             onChange={(e) => this.onNameChange(e?.target?.value)}
             style={{ width: 200, height:30 }}
             value={selectName || undefined}
@@ -293,7 +293,11 @@ class users extends Component {
             columns={[...USER_TABLE_DEFU_ARR, ...tableTitle]} 
             dataSource={userList?.list || []} 
             rowKey={record => record._id} 
-            scroll={{ x: 1200, y: '100%' }}
+            scroll={{
+              x: 1200,
+              y: 'calc(100vh - 300px)',
+              scrollToFirstRowOnChange: true,
+            }}
             loading={userListLoading}
             pagination={false}
             onRow={record => {

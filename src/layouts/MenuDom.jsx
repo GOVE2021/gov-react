@@ -39,7 +39,7 @@ class MenuDom extends Component {
     const selectKey = menuList.findIndex( m => m.url === location.pathname );
     return (
       <div>
-        <Header className={styles.header} style={{ position: 'fixed', zIndex:2, width: '100%' }}>
+        <Header className={styles.header} style={{ position: 'fixed', zIndex:2, width: '100%', borderBottom: '1px solid gray' }}>
           <div className={styles.logo}>绥德县行政事业单位人员工资查询系统</div>
           <Dropdown overlay={this.renderLogOut()} trigger={['hover']} placement='bottomCenter' overlayClassName={styles.logOutDrop}>
             <div className={styles.btnBox} onClick={e => e.preventDefault()}>

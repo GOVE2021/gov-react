@@ -45,6 +45,15 @@ export const TABLE_COMMEN_TITLE_LIST = [
     dataIndex: 'roleId',
     align: 'center',
     width: 150,
-    render: (e) => showTextString(e, ROLE_LIST_MAP)
+    render: (e) => {
+      let text = showTextString(e, ROLE_LIST_MAP);
+      if (e === 1) {
+        return text;
+      }
+      if(e === 2){
+        return <span style={{color: '#D2691E'}}>{text}</span>
+      }
+      return <span style={{color: '#800080'}}>{text}</span>
+    }
   },
 ];

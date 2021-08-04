@@ -119,13 +119,17 @@ class ownSalary extends Component {
         }
         <div className={style.salaryList}>
           <div className={style.groupTitle}>
-            <div className={style.line}></div>
-            <div className={style.text}>实发工资</div>
+            <div className={style.line} style={{borderBottomColor: 'DarkGreen'}}></div>
+            <div className={style.text} style={{backgroundColor: 'DarkGreen'}}>实发工资</div>
           </div>
-          <div className={style.countCount}>{`${detailSalary?.payment ? detailSalary?.payment + ' 元' : ''}`}</div>
+          <div className={style.countCount} style={{color: 'DarkGreen'}}>
+            {
+            `${detailSalary?.payment ? detailSalary?.payment + ' 元' : ''}`
+            }
+          </div>
           <div className={style.groupTitle}>
-            <div className={style.line}></div>
-            <div className={style.text}>工资构成</div>
+            <div className={style.line} style={{borderBottomColor: 'Chocolate'}}></div>
+            <div className={style.text} style={{backgroundColor: 'Chocolate'}}>工资构成</div>
           </div>
           <div>
             {
@@ -134,7 +138,7 @@ class ownSalary extends Component {
                   return null;
                 }
                 return (
-                  <div className={style.salaryItem} key={item}>
+                  <div className={style.salaryItem} key={item} style={{color:'Chocolate'}}>
                     <div className={style.label}>{ADD_SALARY_MAP[item]}:</div>
                     <div className={style.value}>{detailSalary?.[item]} 元</div>
                   </div>
@@ -143,8 +147,8 @@ class ownSalary extends Component {
             }
           </div>
           <div className={style.groupTitle}>
-            <div className={style.line}></div>
-            <div className={style.text}>代扣项目</div>
+            <div className={style.line} style={{borderBottomColor: 'DarkMagenta'}}></div>
+            <div className={style.text} style={{backgroundColor: 'DarkMagenta'}}>代扣项目</div>
           </div>
           <div>
             {
@@ -153,7 +157,7 @@ class ownSalary extends Component {
                   return null;
                 }
                 return (
-                  <div className={style.salaryItem} key={item}>
+                  <div className={style.salaryItem} key={item} style={{color:'DarkMagenta'}}>
                     <div className={style.label}>{REDUCE_SALARY_MAP[item]}:</div>
                     <div className={style.value}>{detailSalary?.[item]} 元</div>
                   </div>

@@ -343,7 +343,7 @@ class ItemSalary extends Component {
                               optionLabelProp={'label'}
                               style={{ width: 250 }}
                               getPopupContainer={(reactNode) => reactNode}
-                              placeholder={'请输入关键字查询'}
+                              placeholder={'按姓名/身份证号搜索'}
                               dropdownClassName={style.dropdownClass}
                               value={selectPersonId || undefined}
                               onChange={(e) => {

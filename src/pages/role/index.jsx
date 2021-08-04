@@ -217,7 +217,7 @@ class department extends Component {
       <div className={style.selectBar}>
         <Input
           allowClear
-          placeholder="输入关键字进行搜索"
+          placeholder="按姓名/身份证号搜索"
           onChange={this.onKeywordsChange}
           style={{ width: 200, height:30 }}
           value={keywords || undefined}
@@ -263,6 +263,11 @@ class department extends Component {
           width={'100%'}
           loading={roleListLoading}
           pagination={false}
+          scroll={{
+            x: 1200,
+            y: 'calc(100vh - 300px)',
+            scrollToFirstRowOnChange: false,
+          }}
         />
         <div className={style.bottomBar}>
           <Pagination

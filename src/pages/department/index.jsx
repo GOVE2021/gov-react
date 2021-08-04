@@ -201,14 +201,17 @@ class department extends Component {
       isBtnDisabled,
     } = this.state;
     return <div className={style.content}>
-      <Button onClick={() => {
-        this.setState({
-          modalDefInfo: departModidyData.add,
-          depItem: {},
-          selectDepartmentId: null,
-          visible: true,
-        });
-      }}>添加部门</Button>
+      <Button
+        type="primary"
+        onClick={() => {
+          this.setState({
+            modalDefInfo: departModidyData.add,
+            depItem: {},
+            selectDepartmentId: null,
+            visible: true,
+          });
+        }}
+      >添加部门</Button>
       <div className={style.treeLineTitle}>
         <div className={style.title}><span style={{paddingLeft: 30}}>部门名称</span></div>
         <div className={style.count}>人数(人)</div>

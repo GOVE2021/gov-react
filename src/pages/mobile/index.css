@@ -116,13 +116,14 @@
   line-height: 14px;
   position: absolute;
   left: 50%;
+  color: #FFF;
   transform: translate(-50%, -50%);
   background-color: silver;
   border-radius: 13px;
 }
 .countCount{
   width: 100%;
-  font-size: 15px;
+  font-size: 20px;
   text-align: center;
   padding: 10px;
 }

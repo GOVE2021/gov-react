@@ -26,7 +26,7 @@ class salary extends Component {
         {
           title: '账号操作',
           align: 'center',
-          width: 180,
+          width: 120,
           fixed: 'right',
           render: this.handelDom,
         }
@@ -131,7 +131,7 @@ class salary extends Component {
           this.deleteSalartData(item);
         }}
       >
-        删除薪资信息
+        删除薪资
     </div>
   }
   /**
@@ -219,7 +219,11 @@ class salary extends Component {
             columns={coulmnsData} 
             dataSource={salaryList?.list || []} 
             rowKey={record => record._id} 
-            scroll={{ x: 1200, y: '100%' }}
+            scroll={{
+              x: 1200,
+              y: 'calc(100vh - 335px)',
+              scrollToFirstRowOnChange: true,
+            }}
             loading={salaryListLoading}
             onRow={record => {
               return {

@@ -68,7 +68,7 @@
   padding: 24px 24px 20px 24px;
   background: #fff;
   min-width: 800px;
-  max-width: 1400px;
+  max-width: 100%;
   overflow-y: hidden;
 }
 

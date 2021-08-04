@@ -1,4 +1,14 @@
 export const ADD_TYPE = 'add';
+const transDeductDom = (k) => {
+  const showStr = k ? '-' + k : '--';
+  return <span style={{color: 'DarkMagenta'}}>{showStr}</span>
+}
+const transAddDom = (k) => { 
+  return <span style={{ color: 'Chocolate' }}>{k || '--'}</span>
+}
+const allPayDom  =  (k) => { 
+  return <span style={{ color: 'DarkGreen' }}>{k || '--'}</span>
+}
 // 表格头
 export const TABLE_COMMEN_TITLE_LIST = [
   {
@@ -13,43 +23,250 @@ export const TABLE_COMMEN_TITLE_LIST = [
     title: '身份证号码',
     dataIndex: 'idNo',
     align: 'center',
+    ellipsis: true,
     width: 180,
   },{
     title: '单位',
     dataIndex: 'departmentName',
     align: 'center',
+    ellipsis: true,
     width: 200,
   },
   {
     title: '薪资账期',
     dataIndex: 'salaryId',
     align: 'center',
-    width: 80,
+    width: 120,
   },
   {
-    title: '岗位工资(¥)',
-    dataIndex: 'postSalary',
-    align: 'center',
-    width: 100,
-  },
-  {
-    title: '薪级工资(¥)',
-    dataIndex: 'levelSalary',
-    align: 'center',
-    width: 100,
-  },
-  {
-    title: '实发工资(¥)',
     dataIndex: 'payment',
+    title: '实发工资(¥)',
     align: 'center',
-    width: 80,
+    width: 120,
+    render: allPayDom,
+  },
+  {
+    title: '职务岗位工资(¥)',
+    dataIndex: 'dutySalary',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    title: '级别技术等级工资(¥)',
+    dataIndex: 'technicalSalary',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'postSalary',
+    title: '岗位工资(¥)',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'levelSalary',
+    title: '薪级工资(¥)',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'workAllowance',
+    title: '工作津贴（基础绩效)',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'performanceAllowance',
+    title: '生活津贴（奖励绩效）',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'retainedAllowance',
+    title: '保留地区工资补贴',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'traffic',
+    title: '交通费',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'nursesTeachersSalary',
+    title: '教护职工工资提高10%',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'policeRankAllowance',
+    title: '警衔津贴',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'teachingNursingAllowance',
+    title: '教龄津贴',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'hardshipAllowance',
+    title: '艰苦边远地区津贴',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'townshipAllowance',
+    title: '乡镇津贴',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'inspectAllowance',
+    title: '纪检监察办案人员补贴',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'coolingAllowance',
+    title: '降温费',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'heatingAllowance',
+    title: '取暖费',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'oneChildAllowance',
+    title: '独生子女费',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'yearTargetAward',
+    title: '平时考核奖',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'normalAward',
+    title: '年度目标责任考核奖',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'yearAward',
+    title: '年终一次性奖金',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'outstandingAward',
+    title: '年度考核优秀公务员',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'ThirdWorkAward',
+    title: '三等功等立功受奖类',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'censorateAward',
+    title: '法检绩效奖金',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'disabledAllowance',
+    title: '伤残补助',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'otherAllowance',
+    title: '代发其他',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'pension',
+    title: '养老金',
+    align: 'center',
+    width: 100,
+    render: transDeductDom,
+  },
+  {
+    dataIndex: 'occupationalAnnuity',
+    title: '职业年金',
+    align: 'center',
+    width: 100,
+    render: transDeductDom,
+  },
+  {
+    dataIndex: 'housingFund',
+    title: '住房公积金',
+    align: 'center',
+    width: 100,
+    render: transDeductDom,
+  },
+  {
+    dataIndex: 'personalTax',
+    title: '个税',
+    align: 'center',
+    width: 100,
+    render: transDeductDom,
+  },
+  {
+    dataIndex: 'medicalInsurance',
+    title: '医疗保险',
+    align: 'center',
+    width: 100,
+    render: transDeductDom,
+  },
+  {
+    dataIndex: 'otherWithhold',
+    title: '代扣其他',
+    align: 'center',
+    width: 100,
+    render: transDeductDom,
   },
 ];
 /**
 * 工资基本信息构成
 */
 export const ADD_SALARY_MAP = {
-  // 'salaryId': '薪资账期',
   'dutySalary': '职务岗位工资',
   'technicalSalary': '级别技术等级工资',
   'postSalary': '岗位工资',

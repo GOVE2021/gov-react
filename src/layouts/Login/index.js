@@ -58,8 +58,8 @@ class UserLogin extends Component {
     const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
       <div className={style.bg}>
-        <div className={style.title}>绥德县行政事业单位人员工资查询系统</div>
         <div className={style.login}>
+          <div className={style.title}>绥德县行政事业单位人员工资查询系统</div>
           <Form
             layout="vertical"
             hideRequiredMark
@@ -67,7 +67,7 @@ class UserLogin extends Component {
             onSubmit={this.handleSubmit}
           >
             <Row gutter={12}>
-              <Col span={14} offset={5}>
+              <Col span={20} offset={2}>
                 <Form.Item
                   label="用户名"
                   validateStatus={userNameError ? 'error' : ''}
@@ -75,25 +75,20 @@ class UserLogin extends Component {
                 >
                   {getFieldDecorator('userName', {
                     rules: [
-                      { required: true, message: 'Please enter name!' },
+                      { required: true, message: '请输入身份证号' },
                       // {
                       //   pattern: new RegExp(/^[\u4e00-\u9fa5]/g, ''),
                       //   message: 'User names must be in Chinese!',
-                      // },
-                      {
-                        min: 3,
-                        max: 100,
-                        message: 'The length is out of range!',
-                      },
+                      // }
                       {
                         whitespace: true,
-                        message: 'No Spaces are allowed!',
+                        message: '不能有空格!',
                       },
                     ],
                     initialValue: '',
                   })(
                     <Input
-                      placeholder="Please enter user name"
+                      placeholder="请输入身份证号"
                       size="large"
                       prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                       onChange={()=>this.handleSelectChange.bind(this)}
@@ -105,7 +100,7 @@ class UserLogin extends Component {
             </Row>
 
             <Row gutter={12}>
-              <Col span={14} offset={5}>
+              <Col span={20} offset={2}>
                 <Form.Item
                   label="密码"
                   validateStatus={passwordError ? 'error' : ''}
@@ -113,16 +108,16 @@ class UserLogin extends Component {
                 >
                   {getFieldDecorator('password', {
                     rules: [
-                      { required: true, message: 'Please enter password!' },
+                      { required: true, message: '请输入密码!' },
                       {
                         whitespace: true,
-                        message: 'No Spaces are allowed!',
+                        message: '不能有空格!',
                       },
                     ],
                     initialValue: '',
                   })(
                     <Input.Password
-                      placeholder="Please enter user password"
+                      placeholder="请输入密码"
                       size="large"
                       prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                       type="password"
@@ -156,7 +151,7 @@ class UserLogin extends Component {
                     type="primary"
                     size="large"
                     htmlType="submit"
-                    disabled={hasErrors(getFieldsError())}
+                    // disabled={hasErrors(getFieldsError())}
                   >
                       登陆
                   </Button>
