@@ -4,7 +4,7 @@ import { Spin, message } from 'antd';
 import moment from 'moment';
 import { ROLE_LIST_MAP, PERSON_TYPE_LIST } from '../utils';
 import DateModal from './DataModals';
-import { ADD_SALARY_MAP, REDUCE_SALARY_MAP } from '../salary/cont'
+import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, OLD_WORKER_SALARY_MAP } from '../salary/cont'
 import userInfoBG from '@assets/mobileBg.jpeg';
 
 import style from './index.css';
@@ -93,14 +93,19 @@ class ownSalary extends Component {
       isLoadingUserInfo,
       visible,
       defDateStr,
+      selectEmployeeStatus,
     } = this.state;
     const roleTypeStr = ROLE_LIST_MAP?.find( i => i.key === userDetail?.roleType)?.name || '-';
     const userStatue = PERSON_TYPE_LIST?.find( k => k?.key === userDetail?.employeeStatus)?.title || '';
+    const isInWork = selectEmployeeStatus === PERSON_TYPE_LIST[0].key;
+    const userPayDetailLabel = isInWork ? ADD_SALARY_MAP : OLD_WORKER_SALARY_MAP;
+    // alert(JSON.stringify(detailSalary))
     if (isLoadingUserInfo){
       return <div className={style.H5Dom}>
         <Spin className={style.spin} />
       </div>
     }
+
     return <div className={style.H5Dom}>
         <img className={style.userBg} src={userInfoBG} alt='' />
         <div className={style.userInfo}>
@@ -129,7 +134,7 @@ class ownSalary extends Component {
             <div className={style.salaryList}>
               <div className={style.groupTitle}>
                 <div className={style.line} style={{borderBottomColor: 'DarkGreen'}}></div>
-                <div className={style.text} style={{backgroundColor: 'DarkGreen'}}>实发工资</div>
+                <div className={style.text} style={{backgroundColor: 'DarkGreen'}}>{isInWork ? '实发工资' : '退休工资'}</div>
               </div>
               <div className={style.countCount} style={{color: 'DarkGreen'}}>
                 {
@@ -142,38 +147,42 @@ class ownSalary extends Component {
               </div>
               <div>
                 {
-                  Object.keys(ADD_SALARY_MAP).map( item => {
+                  Object.keys(userPayDetailLabel).map( item => {
                     if (!detailSalary?.[item]){
                       return null;
                     }
                     return (
                       <div className={style.salaryItem} key={item} style={{color:'Chocolate'}}>
-                        <div className={style.label}>{ADD_SALARY_MAP[item]}:</div>
+                        <div className={style.label}>{userPayDetailLabel[item]}:</div>
                         <div className={style.value}>{detailSalary?.[item]} 元</div>
                       </div>
                     )
                   })
                 }
               </div>
-              <div className={style.groupTitle}>
-                <div className={style.line} style={{borderBottomColor: 'DarkMagenta'}}></div>
-                <div className={style.text} style={{backgroundColor: 'DarkMagenta'}}>代扣项目</div>
-              </div>
-              <div>
-                {
-                  Object.keys(REDUCE_SALARY_MAP).map( item => {
-                    if (!detailSalary?.[item]){
-                      return null;
+              {isInWork && 
+                <>
+                  <div className={style.groupTitle}>
+                    <div className={style.line} style={{borderBottomColor: 'DarkMagenta'}}></div>
+                    <div className={style.text} style={{backgroundColor: 'DarkMagenta'}}>代扣项目</div>
+                  </div>
+                  <div>
+                    {
+                      Object.keys(REDUCE_SALARY_MAP).map( item => {
+                        if (!detailSalary?.[item]){
+                          return null;
+                        }
+                        return (
+                          <div className={style.salaryItem} key={item} style={{color:'DarkMagenta'}}>
+                            <div className={style.label}>{REDUCE_SALARY_MAP[item]}:</div>
+                            <div className={style.value}>{detailSalary?.[item]} 元</div>
+                          </div>
+                        )
+                      })
                     }
-                    return (
-                      <div className={style.salaryItem} key={item} style={{color:'DarkMagenta'}}>
-                        <div className={style.label}>{REDUCE_SALARY_MAP[item]}:</div>
-                        <div className={style.value}>{detailSalary?.[item]} 元</div>
-                      </div>
-                    )
-                  })
-                }
-              </div>
+                  </div>
+                </>
+              }
             </div>
           </>
         }
