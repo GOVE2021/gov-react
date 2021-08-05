@@ -39,7 +39,7 @@ class ownSalary extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { userDetail, dispatch } = nextProps
     const { loginUserId, defDateStr } = prevState;
-    if (userDetail?.id !== loginUserId) {
+    if (userDetail?.id !== loginUserId && userDetail?.id) {
       dispatch({
         type: 'Salary/getSalaryDetail',
         payload: { 

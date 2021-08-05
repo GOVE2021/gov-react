@@ -8,9 +8,8 @@ message.config({
   duration: 2,
   maxCount: 1,
 });
-let baseUrl =  '';
-// let baseUrl =  'http://47.105.192.57:7088';
-// let baseUrl =  'http://10.88.40.100:7088';
+// let baseUrl =  '';
+let baseUrl =  'http://47.105.192.57:7088';
 
 const instance = axios.create({
     timeout: 5000, // 超时时间
@@ -19,10 +18,8 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
 	function(config) {
-		// config.headers["authorization"] = "token " + localStorage.getItem("token");
 		config.headers["token"] = localStorage.getItem("token");
 		config.headers["cache-control"] = 'no-cache';
-		// config.headers["Referer"] = 'http://10.88.40.100:7088';
 		return config;
 	},
 	function(error) {
@@ -37,9 +34,7 @@ instance.interceptors.response.use(
 			//跳转login
 			logOut();
 			router.replace('/');
-		} else {
-			// console.log("success");
-		}
+		} 
 		return response;
 	},
 	function(error) {
