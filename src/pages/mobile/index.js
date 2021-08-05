@@ -2,7 +2,7 @@ import React,{ Component } from 'react';
 import { connect } from 'dva';
 import { Spin, message } from 'antd';
 import moment from 'moment';
-import { ROLE_LIST_MAP } from '../utils';
+import { ROLE_LIST_MAP, PERSON_TYPE_LIST } from '../utils';
 import DateModal from './DataModals';
 import { ADD_SALARY_MAP, REDUCE_SALARY_MAP } from '../salary/cont'
 import userInfoBG from '@assets/mobileBg.jpeg';
@@ -70,18 +70,6 @@ class ownSalary extends Component {
         "employeeStatus": userDetail?.employeeStatus,
       },
     })
-    // .then(({ code, msg, data }) => {
-    //   this.setState({ isLoadingDetail: false });
-    //   if (code === 200){
-    //     this.setState({
-    //       detailSalary: data || {},
-    //       isSalaryLoading : false,
-    //     });
-    //   }else{
-    //     message.error(msg);
-    //     this.setState({ detailSalary: {} });
-    //   }
-    // })
   }
   /**
    * 日期选择弹窗
@@ -107,6 +95,7 @@ class ownSalary extends Component {
       defDateStr,
     } = this.state;
     const roleTypeStr = ROLE_LIST_MAP?.find( i => i.key === userDetail?.roleType)?.name || '-';
+    const userStatue = PERSON_TYPE_LIST?.find( k => k?.key === userDetail?.employeeStatus)?.title || '';
     if (isLoadingUserInfo){
       return <div className={style.H5Dom}>
         <Spin className={style.spin} />
@@ -119,7 +108,7 @@ class ownSalary extends Component {
               <div className={style.topTitle}>绥德县行政事业单位人员工资</div>
               <div className={style.roleType}>{roleTypeStr}</div>
           </div>
-          <div className={style.name}>{`你好 ${userDetail?.realname}`}</div>
+          <div className={style.name}>{`你好 ${userDetail?.realname}`}{userStatue? ' (' + userStatue + ')' : ''}</div>
           <div className={style.depart}>{userDetail?.departmentName}</div>
         </div>
 

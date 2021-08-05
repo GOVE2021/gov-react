@@ -7,6 +7,10 @@ export const USER_KEY_MAP = [
     key: 'realname',
   },
   {
+    label: '类别',
+    key: 'employeeStatus',
+  },
+  {
     label: '部门',
     key: 'departmentName',
   },
@@ -14,10 +18,6 @@ export const USER_KEY_MAP = [
     label: '权限',
     key: 'roleType',
   },
-  // {
-  //   label: '地址',
-  //   key: 'address',
-  // },
 ];
 /**
  * 性别

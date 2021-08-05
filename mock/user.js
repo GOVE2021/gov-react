@@ -51,7 +51,7 @@ const detailData = {
   status: 'ok',
   data:{
     id: 1,
-    realname: '哈哈哈·买买提',
+    realname: '哈·买买提',
     roleType: 3,
     departmentName: '临时工部门',
     address: '云南省 保山市 施甸县',

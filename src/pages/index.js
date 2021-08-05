@@ -4,7 +4,7 @@ import { Button, Modal, Input, message } from 'antd';
 import md5 from 'blueimp-md5';
 import { logOut } from '@utils/authLocal';
 import router from 'umi/router';
-import { USER_KEY_MAP, ROLE_LIST_MAP } from './utils';
+import { USER_KEY_MAP, ROLE_LIST_MAP, PERSON_TYPE_LIST } from './utils';
 
 import style from './index.css';
 
@@ -88,7 +88,10 @@ class department extends Component {
                   (() => {
                     let showText = userDetail?.[item.key];
                     if (item?.key === 'roleType'){
-                      showText = ROLE_LIST_MAP.find((n) => n?.key === userDetail?.[item.key])?.name
+                      showText = ROLE_LIST_MAP.find((n) => n?.key === userDetail?.[item.key])?.name;
+                    }
+                    if (item?.key === 'employeeStatus') {
+                      showText =  PERSON_TYPE_LIST.find( m => m?.key === userDetail?.[item.key])?.title;
                     }
                     return <div className={style.value}>{showText || '-'}</div>
                   })()
