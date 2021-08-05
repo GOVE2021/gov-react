@@ -227,7 +227,7 @@ class department extends Component {
         <Tree
           className={style.treeDom}
           blockNode={true}
-          expandedKeys={treeDefaultExpandedKeys}
+          defaultExpandedKeys={treeDefaultExpandedKeys}
         >
           {this.renderTreeNodes(departmentList)}
         </Tree>
