@@ -200,6 +200,7 @@ class department extends Component {
       modalDefInfo,
       isBtnDisabled,
     } = this.state;
+
     // 默认是根部门时，展开第一层就行
     const treeDefaultExpandedKeys = departmentList.length === 1 ? [departmentList[0].value] : [];
     
