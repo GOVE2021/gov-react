@@ -1,3 +1,4 @@
+import { message } from "antd"
 import {
   salaryList,
   salaryDetail,
@@ -11,7 +12,8 @@ export default({
   state:{
     salaryList:[],
     salaryListLoading: false,
-    salaryDetail: {},
+    detailSalary: {},
+    isSalaryLoading: false,
   },
   reducers:{
     saveList(state,{ payload: res }) {
@@ -27,6 +29,18 @@ export default({
         salaryListLoading:true
       }
     },
+    setSalaryDetail(state,{ payload: res }) {
+      return {
+        ...state,
+        detailSalary: res,
+      }
+    },
+    setSalaryIsLoading(state,{ payload: res }){
+      return {
+        ...state,
+        isSalaryLoading: res,
+      }
+    }
   },
   effects:{
     *getList({ payload }, { call, put }) {
@@ -40,7 +54,17 @@ export default({
       }
     },
     *getSalaryDetail({ payload }, { call, put }) {
+      yield put({type:'setSalaryIsLoading', payload: true});
       const { data } = yield call(salaryDetail, payload);
+      if (data?.code === 200){
+        yield put({type:'setSalaryIsLoading', payload: false});
+        yield put({
+          type:"setSalaryDetail",
+          payload: data?.data || {},
+        });
+      }else{
+        message.error(data?.msg || '')
+      }
       return data;
     },
     *updateSalaryData({ payload }, { call, put }) {

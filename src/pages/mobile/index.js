@@ -14,13 +14,13 @@ class ownSalary extends Component {
     super(props);
     this.state = {
       isLoadingUserInfo: true,
-      isSalaryLoading: false,
       visible: false,
+      loginUserId: null,
+      selectEmployeeStatus: null,
       defDateStr: moment().format('YYYY-MM'),
       oldPsd: '',
       firstPsd: '',
       secondPsd: '',
-      detailSalary: '',
     }
   }
   componentDidMount () {
@@ -30,37 +30,58 @@ class ownSalary extends Component {
     }).then(({ code, msg }) => {
       if (code === 200){
         this.setState({ isLoadingUserInfo: false });
-        this.getSalaryDetail();
       } else {
         message.error(msg);
       }
     });
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { userDetail, dispatch } = nextProps
+    const { loginUserId, defDateStr } = prevState;
+    if (userDetail?.id !== loginUserId) {
+      dispatch({
+        type: 'Salary/getSalaryDetail',
+        payload: { 
+          "userId": userDetail?.id,
+          "salaryId": defDateStr,
+          "employeeStatus": userDetail?.employeeStatus,
+        },
+      });
+      return {
+        loginUserId: userDetail.id,
+        selectEmployeeStatus: userDetail?.employeeStatus,
+      };
+    }
+  }
+
+
   /**
    * 获取薪资详情
    */
   getSalaryDetail = () => {
     const { dispatch, userDetail } = this.props;
     const { defDateStr } = this.state;
-    this.setState({ isSalaryLoading : true });
     dispatch({
       type: 'Salary/getSalaryDetail',
       payload: { 
-        "userId": userDetail?.userId,
+        "userId": userDetail?.id,
         "salaryId": defDateStr,
+        "employeeStatus": userDetail?.employeeStatus,
       },
-    }).then(({ code, msg, data }) => {
-      this.setState({ isLoadingDetail: false });
-      if (code === 200){
-        this.setState({
-          detailSalary: data || {},
-          isSalaryLoading : false,
-        });
-      }else{
-        message.error(msg);
-        this.setState({ detailSalary: {} });
-      }
     })
+    // .then(({ code, msg, data }) => {
+    //   this.setState({ isLoadingDetail: false });
+    //   if (code === 200){
+    //     this.setState({
+    //       detailSalary: data || {},
+    //       isSalaryLoading : false,
+    //     });
+    //   }else{
+    //     message.error(msg);
+    //     this.setState({ detailSalary: {} });
+    //   }
+    // })
   }
   /**
    * 日期选择弹窗
@@ -79,13 +100,11 @@ class ownSalary extends Component {
     });
   }
   render () {
-    const { userDetail } = this.props;
+    const { userDetail, isSalaryLoading, detailSalary } = this.props;
     const {
       isLoadingUserInfo,
       visible,
       defDateStr,
-      detailSalary,
-      isSalaryLoading,
     } = this.state;
     const roleTypeStr = ROLE_LIST_MAP?.find( i => i.key === userDetail?.roleType)?.name || '-';
     if (isLoadingUserInfo){
@@ -112,60 +131,63 @@ class ownSalary extends Component {
           </div>
           <div>月工资</div>
         </div>
-        {isSalaryLoading &&
+        {isSalaryLoading ?
           <div className={style.salaryList}>
             <Spin className={style.spin} />
           </div>
+          :
+          <>
+            <div className={style.salaryList}>
+              <div className={style.groupTitle}>
+                <div className={style.line} style={{borderBottomColor: 'DarkGreen'}}></div>
+                <div className={style.text} style={{backgroundColor: 'DarkGreen'}}>实发工资</div>
+              </div>
+              <div className={style.countCount} style={{color: 'DarkGreen'}}>
+                {
+                `${detailSalary?.payment ? detailSalary?.payment + ' 元' : ''}`
+                }
+              </div>
+              <div className={style.groupTitle}>
+                <div className={style.line} style={{borderBottomColor: 'Chocolate'}}></div>
+                <div className={style.text} style={{backgroundColor: 'Chocolate'}}>工资构成</div>
+              </div>
+              <div>
+                {
+                  Object.keys(ADD_SALARY_MAP).map( item => {
+                    if (!detailSalary?.[item]){
+                      return null;
+                    }
+                    return (
+                      <div className={style.salaryItem} key={item} style={{color:'Chocolate'}}>
+                        <div className={style.label}>{ADD_SALARY_MAP[item]}:</div>
+                        <div className={style.value}>{detailSalary?.[item]} 元</div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+              <div className={style.groupTitle}>
+                <div className={style.line} style={{borderBottomColor: 'DarkMagenta'}}></div>
+                <div className={style.text} style={{backgroundColor: 'DarkMagenta'}}>代扣项目</div>
+              </div>
+              <div>
+                {
+                  Object.keys(REDUCE_SALARY_MAP).map( item => {
+                    if (!detailSalary?.[item]){
+                      return null;
+                    }
+                    return (
+                      <div className={style.salaryItem} key={item} style={{color:'DarkMagenta'}}>
+                        <div className={style.label}>{REDUCE_SALARY_MAP[item]}:</div>
+                        <div className={style.value}>{detailSalary?.[item]} 元</div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+          </>
         }
-        <div className={style.salaryList}>
-          <div className={style.groupTitle}>
-            <div className={style.line} style={{borderBottomColor: 'DarkGreen'}}></div>
-            <div className={style.text} style={{backgroundColor: 'DarkGreen'}}>实发工资</div>
-          </div>
-          <div className={style.countCount} style={{color: 'DarkGreen'}}>
-            {
-            `${detailSalary?.payment ? detailSalary?.payment + ' 元' : ''}`
-            }
-          </div>
-          <div className={style.groupTitle}>
-            <div className={style.line} style={{borderBottomColor: 'Chocolate'}}></div>
-            <div className={style.text} style={{backgroundColor: 'Chocolate'}}>工资构成</div>
-          </div>
-          <div>
-            {
-              Object.keys(ADD_SALARY_MAP).map( item => {
-                if (!detailSalary?.[item]){
-                  return null;
-                }
-                return (
-                  <div className={style.salaryItem} key={item} style={{color:'Chocolate'}}>
-                    <div className={style.label}>{ADD_SALARY_MAP[item]}:</div>
-                    <div className={style.value}>{detailSalary?.[item]} 元</div>
-                  </div>
-                )
-              })
-            }
-          </div>
-          <div className={style.groupTitle}>
-            <div className={style.line} style={{borderBottomColor: 'DarkMagenta'}}></div>
-            <div className={style.text} style={{backgroundColor: 'DarkMagenta'}}>代扣项目</div>
-          </div>
-          <div>
-            {
-              Object.keys(REDUCE_SALARY_MAP).map( item => {
-                if (!detailSalary?.[item]){
-                  return null;
-                }
-                return (
-                  <div className={style.salaryItem} key={item} style={{color:'DarkMagenta'}}>
-                    <div className={style.label}>{REDUCE_SALARY_MAP[item]}:</div>
-                    <div className={style.value}>{detailSalary?.[item]} 元</div>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
         
         <DateModal
           visible={visible}
@@ -179,6 +201,9 @@ class ownSalary extends Component {
 
 const mapStateToProps = (state) =>({
   userDetail: state.Users.userDetail || {},
+  isLoadingDetail: state.Users.isLoadingDetail || false,
+  isSalaryLoading: state.Salary.isSalaryLoading || false,
+  detailSalary: state.Salary.detailSalary || {},
 })
 export default connect(mapStateToProps)(ownSalary)
 

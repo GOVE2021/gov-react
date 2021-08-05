@@ -1,10 +1,11 @@
 
 .selectBar{
   display: flex;
+  min-width: 820px;
   padding: 10px 0;
 }
 .tableList{
-  min-width: 800px;
+  min-width: 820px;
 }
 .dropdownClass{
   z-index: 9999!important;
