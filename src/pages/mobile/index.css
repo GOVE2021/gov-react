@@ -39,24 +39,35 @@
   text-overflow:ellipsis;
   white-space: nowrap;
 }
+.userInfo .title .logOut{
+  width: 80px;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.7);
+}
 .name{
   font-size: 17px;
   font-weight: 600;
   padding: 5px 0;
   margin-top: 20px;
 }
-.userInfo .title .roleType{
+.infoBottomBar{
+  width: 100%;
+  display: flex;
+}
+.infoBottomBar .roleType{
   width: 80px;
   text-align: right;
-  color: 	#B0C4DE;
+  padding: 5px 0;
+  color: rgba(255, 255, 255, 0.8);
 }
-.userInfo .depart{
+.infoBottomBar .depart{
   padding: 5px 0;
   width: 100%;
+  flex: 1;
+  color: rgba(255, 255, 255, 0.8);
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
-  color: rgba(255, 255, 255, 0.7);
 }
 /************ 工资明细 css ************/
 .salaryInfoSelect{

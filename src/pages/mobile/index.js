@@ -1,12 +1,16 @@
 import React,{ Component } from 'react';
 import { connect } from 'dva';
 import { Spin, message } from 'antd';
+import router from 'umi/router';
 import moment from 'moment';
-import { ROLE_LIST_MAP, PERSON_TYPE_LIST } from '../utils';
-import DateModal from './DataModals';
-import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, OLD_WORKER_SALARY_MAP } from '../salary/cont'
-import userInfoBG from '@assets/mobileBg.jpeg';
 
+import { logOut } from '@utils/authLocal';
+import DateModal from './DataModals';
+
+import { ROLE_LIST_MAP, PERSON_TYPE_LIST } from '../utils';
+import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, OLD_WORKER_SALARY_MAP } from '../salary/cont'
+
+import userInfoBG from '@assets/mobileBg.jpeg';
 import style from './index.css';
 
 class ownSalary extends Component {
@@ -87,6 +91,14 @@ class ownSalary extends Component {
       this.getSalaryDetail();
     });
   }
+  /**
+   * 退出账号
+   */
+  logOut = () => {
+    logOut();
+    router.replace('/');
+  }
+
   render () {
     const { userDetail, isSalaryLoading, detailSalary } = this.props;
     const {
@@ -99,7 +111,7 @@ class ownSalary extends Component {
     const userStatue = PERSON_TYPE_LIST?.find( k => k?.key === userDetail?.employeeStatus)?.title || '';
     const isInWork = selectEmployeeStatus === PERSON_TYPE_LIST[0].key;
     const userPayDetailLabel = isInWork ? ADD_SALARY_MAP : OLD_WORKER_SALARY_MAP;
-    // alert(JSON.stringify(detailSalary))
+
     if (isLoadingUserInfo){
       return <div className={style.H5Dom}>
         <Spin className={style.spin} />
@@ -111,10 +123,13 @@ class ownSalary extends Component {
         <div className={style.userInfo}>
           <div className={style.title}>
               <div className={style.topTitle}>绥德县行政事业单位人员工资</div>
-              <div className={style.roleType}>{roleTypeStr}</div>
+              <div className={style.logOut} onClick={this.logOut}>退出</div>
           </div>
           <div className={style.name}>{`你好 ${userDetail?.realname}`}{userStatue? ' (' + userStatue + ')' : ''}</div>
-          <div className={style.depart}>{userDetail?.departmentName}</div>
+          <div className={style.infoBottomBar}>
+            <div className={style.depart}>{userDetail?.departmentName}</div>
+            <div className={style.roleType}>{roleTypeStr}</div>
+          </div>
         </div>
 
         <div className={style.salaryInfoSelect}>
