@@ -336,7 +336,7 @@ class users extends Component {
           <p>
             <span>{handelKeyItem?.sub1 || ''}</span>
             <span style={{color: 'red',marginLeft: 10}}>
-              {(itemData?.virtualType === ADMIN_USER_TYPE ? handelKeyItem?.defdefPsdAdminPsd : handelKeyItem?.defPsd) || '' }
+              {(itemData?.virtualType === ADMIN_USER_TYPE ? handelKeyItem?.defPsdAdmin : handelKeyItem?.defPsd) || '' }
             </span>
           </p>
         </Modal>
