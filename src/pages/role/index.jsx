@@ -228,7 +228,7 @@ class department extends Component {
           id='roleSelectBar'
           value={selectRoleValue || undefined}
           getPopupContainer={() => document.getElementById('roleSelectBar')}
-          style={{ width: 200, marginLeft: 15, zIndex: 99 }}
+          style={{ width: 200, marginLeft: 15, height: 30, zIndex: 99 }}
           onChange={this.selectRoleChange}
           placeholder={'请选择角色'}
         >
@@ -241,6 +241,7 @@ class department extends Component {
         <TreeSelect
           allowClear
           multiple
+          maxTagCount={3}
           showSearch={false}
           treeData={departmentList}
           labelInValue={true}
@@ -249,8 +250,6 @@ class department extends Component {
           dropdownClassName={style.dropdownClass}
           onChange={this.onSelectDepartmentChange}
           treeCheckable={true}
-          // treeNodeLabelProp={'departmentName'}
-          // showCheckedStrategy={'SHOW_PARENT'}
           placeholder={'按部门搜索'}
           style={{width: 200, marginLeft: 10}}
         />

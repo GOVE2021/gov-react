@@ -242,6 +242,7 @@ class salary extends Component {
             <TreeSelect
               allowClear
               multiple
+              maxTagCount={3}
               showSearch={false}
               labelInValue={true}
               treeCheckStrictly={true}
@@ -250,9 +251,8 @@ class salary extends Component {
               dropdownClassName={style.dropdownClass}
               onChange={this.onDepartmentChange}
               treeCheckable={true}
-              // showCheckedStrategy={'SHOW_PARENT'}
               placeholder={'按部门搜索'}
-              style={{width: 200, marginLeft: 10}}
+              style={{width: 200, marginLeft: 10 }}
             />
           </>}
           <MonthPicker
@@ -261,7 +261,7 @@ class salary extends Component {
             format={'YYYY-MM'}
             placeholder="请选择账期"
             dropdownClassName={style.dropdownClass}
-            style={{ marginLeft: 10,width: 120 }} 
+            style={{ marginLeft: 10,width: 120, height: 30 }} 
             onChange={this.mounthChange}
           />
           {userDetail?.roleType !== 1 && 

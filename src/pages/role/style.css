@@ -31,6 +31,8 @@
 }
 .dropdownClass{
   z-index: 9999!important;
+  max-height: 400px!important;
+  overflow: auto!important;
 }
 .rootTips{
   margin: 25px 0 0 100px;

@@ -252,6 +252,7 @@ class users extends Component {
           <TreeSelect
             allowClear
             multiple
+            maxTagCount={3}
             showSearch={false}
             labelInValue={true}
             treeCheckStrictly={true}

@@ -9,6 +9,8 @@
 }
 .dropdownClass{
   z-index: 9999!important;
+  max-height: 400px!important;
+  overflow: auto!important;
 }
 .modal{
   width: 750px!important;
