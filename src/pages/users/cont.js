@@ -7,7 +7,7 @@ import {
   showTextString,
 } from '../utils';
 
-
+export const ADMIN_USER_TYPE = 2;
 /**
  * 个人信息字典
  */
@@ -32,6 +32,7 @@ export const HANDEL_MAP = [
     sub: '点击确认进行重置密码',
     sub1: '重置后密码默认为:',
     defPsd: '身份证后 6位',
+    defPsdAdmin: '用户名',
   },
   {
     name: '删除用户',
@@ -50,6 +51,7 @@ export const USER_TABLE_DEFU_ARR = [
     width: 80,
     ellipsis: true,
     fixed: 'left',
+    render: (i) => showTextString(i),
   },
   {
     title: '性别',
@@ -63,6 +65,7 @@ export const USER_TABLE_DEFU_ARR = [
     dataIndex: 'idNo',
     align: 'center',
     width: 200,
+    render: (i) => showTextString(i),
   },
   {
     title: '单位',
@@ -70,6 +73,7 @@ export const USER_TABLE_DEFU_ARR = [
     align: 'center',
     ellipsis: true,
     width: 200,
+    render: (i) => showTextString(i),
   },
   {
     title: '人员类别',
@@ -106,18 +110,20 @@ export const USER_TABLE_DEFU_ARR = [
     dataIndex: 'birthday',
     align: 'center',
     width: 150,
+    render: (i) => showTextString(i),
   },
   {
     title: '参加工作时间',
     dataIndex: 'beginWorkTime',
     align: 'center',
     width: 150,
+    render: (i) => showTextString(i),
   },
   {
     title: '学历',
     dataIndex: 'highestDegree',
     align: 'center',
-    width: 80,
+    width: 100,
     render: (i) => showTextString(i, EDU_BG_LIST),
   },
 ]

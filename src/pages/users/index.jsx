@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Table, Input, TreeSelect, Icon, Modal, Button, ConfigProvider, Pagination, message } from 'antd';
-import { HANDEL_MAP, USER_TABLE_DEFU_ARR } from './cont';
+import { HANDEL_MAP, USER_TABLE_DEFU_ARR, ADMIN_USER_TYPE } from './cont';
 import UserDetail from './UserDetail';
 import zhCN from 'antd/es/locale/zh_CN'; 
 
@@ -127,17 +127,11 @@ class users extends Component {
     return <div className={style.handleCss}>
       {
         HANDEL_MAP.map(keyItem => {
+          const isDeleteDisable = (keyItem.key === 'delete' && item?.virtualType === ADMIN_USER_TYPE);// 特殊账号不能删除用户
           return (
             <span 
-              onClick={(e) => {
-                // 阻止合成事件间的冒泡
-                e.stopPropagation();
-                this.setState({
-                  itemData: item,
-                  handelKeyItem: keyItem,
-                  resetOrDeleteVisible: true,
-                })
-              }}
+              onClick={(e) => {this.lastCellHandel(e, item, keyItem, isDeleteDisable)}}
+              style={isDeleteDisable ? {color: 'gray'} : {}}
             >
               {keyItem.name}
             </span>
@@ -145,6 +139,18 @@ class users extends Component {
         })
       }
     </div>
+  }
+  /**
+   * 列表按钮操作
+   */
+  lastCellHandel = (e, item, keyItem, isDeleteDisable) => {
+    e.stopPropagation();// 阻止合成事件间的冒泡
+    if(isDeleteDisable){ return }
+    this.setState({
+      itemData: item,
+      handelKeyItem: keyItem,
+      resetOrDeleteVisible: true,
+    })
   }
   /**
    * 重置账号
@@ -329,7 +335,9 @@ class users extends Component {
           <p>{handelKeyItem?.sub || ''}</p>
           <p>
             <span>{handelKeyItem?.sub1 || ''}</span>
-            <span style={{color: 'red',marginLeft: 10}}>{handelKeyItem?.defPsd || ''}</span>
+            <span style={{color: 'red',marginLeft: 10}}>
+              {(itemData?.virtualType === ADMIN_USER_TYPE ? handelKeyItem?.defdefPsdAdminPsd : handelKeyItem?.defPsd) || '' }
+            </span>
           </p>
         </Modal>
         {itemData && <UserDetail 

@@ -304,8 +304,12 @@ export const DUTY_LIST = {
  * @returns string
  */
 export const showTextString = (key,list) => {
-  const dataItem = (list || []).find(n => Number(n.key) === Number(key)) || {};
-  return dataItem?.title || dataItem?.name || '-';
+  if(list && Array.isArray(list)){
+    const dataItem = (list || []).find(n => Number(n.key) === Number(key)) || {};
+    return dataItem?.title || dataItem?.name || '--';
+  }else{
+    return key?.length ? key : '--';
+  }
 }
 /**
  * 转换部门数据
@@ -315,7 +319,6 @@ export const showTextString = (key,list) => {
 export const transDepartmentIds = (arr) => {
   let idsArr = [];
   (arr || []).forEach((k, i) => {
-    // idsArr.push(k?.id||'')
     idsArr.push({
       label: k?.name,
       value: k?.id,

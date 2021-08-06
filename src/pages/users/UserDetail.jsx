@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
 import { TreeSelect, Modal, Select, Button, Input, DatePicker, message } from 'antd';
-import { USER_TITLE_MAP } from './cont';
+import { USER_TITLE_MAP, ADMIN_USER_TYPE } from './cont';
 
 import {
   EDU_BG_LIST,
@@ -232,7 +232,7 @@ class UserDetail extends Component {
                   case 'department':
                     return value?.name;
                   default:
-                    return value;
+                    return showTextString(value);
                 }
               })()}</div>
           </div>
@@ -269,7 +269,12 @@ class UserDetail extends Component {
           :
           <>
             <Button onClick={this.closeModalChange}>取消</Button>
-            <Button type="danger" onClick={() => this.setState({ isEdit: true })}>修改</Button>
+            {ADMIN_USER_TYPE !== itemData?.virtualType && 
+              <Button 
+                type="danger" 
+                onClick={() => this.setState({ isEdit: true })}
+              >修改</Button>
+            }
           </>
         }
       </div>

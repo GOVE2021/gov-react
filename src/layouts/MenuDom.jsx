@@ -55,7 +55,6 @@ class MenuDom extends Component {
             theme="dark"
             width={180}
           >
-            {/* <div className="logo" /> */}
             <Menu theme="dark" mode="inline" selectedKeys={[selectKey.toString()]}>
                 {menuList.map((k, i) => {
                   if(!k.role.includes(userDetail?.roleType)){
@@ -64,21 +63,16 @@ class MenuDom extends Component {
                   if (k?.subMuen?.length){
                     return (
                       <SubMenu 
-                        key="sub3" 
+                        key={k.url} 
                         title={
                           <>
                             <Icon type={k.icon} />
                             <span>{k.name}</span>
                           </>
                         }>
-                        {k.subMuen.map((s,j) => {
+                        {k.subMuen.map(s => {
                           return (
-                            <Menu.Item
-                              key={`${i}-${j}`}
-                              onClick={() => {
-                                router.replace(s.url);
-                              }}
-                            >
+                            <Menu.Item key={s.url} onClick={() => router.replace(s.url)} >
                               {s.name}
                             </Menu.Item>
                           )
@@ -87,7 +81,10 @@ class MenuDom extends Component {
                     )
                   }
                   return (
-                    <Menu.Item key={i} onClick={() => { router.replace(k.url); }}>
+                    <Menu.Item 
+                      key={k.url} 
+                      onClick={() => { router.replace(k.url); }}
+                    >
                       <Icon type={k.icon} />
                       <span>{k.name}</span>
                     </Menu.Item>
