@@ -326,8 +326,6 @@ class department extends Component {
                 value={selectDpartment}
                 onChange={this.onDepartmentChange}
                 treeCheckable={true}
-                treeNodeLabelProp={'departmentName'}
-                showCheckedStrategy={'SHOW_PARENT'}
                 placeholder={'按部门搜索'}
                 style={{width: 200 }}
                 suffixIcon={<Icon type="search" />}
