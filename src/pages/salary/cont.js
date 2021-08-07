@@ -203,7 +203,7 @@ export const IN_WORK_TITLE_LIST = [
     render: transAddDom,
   },
   {
-    dataIndex: 'ThirdWorkAward',
+    dataIndex: 'thirdWorkAward',
     title: '三等功等立功受奖类',
     align: 'center',
     width: 100,
@@ -380,7 +380,7 @@ export const ADD_SALARY_MAP = {
   'normalAward': '年度目标责任考核奖',
   'yearAward': '年终一次性奖金',
   'outstandingAward': '年度考核优秀公务员',
-  'ThirdWorkAward': '三等功等立功受奖类',
+  'thirdWorkAward': '三等功等立功受奖类',
   'censorateAward': '法检绩效奖金',
   'disabledAllowance': '伤残补助',
   'otherAllowance': '其他',

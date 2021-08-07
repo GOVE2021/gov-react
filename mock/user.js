@@ -86,7 +86,7 @@ const userSelectList = () => {
     'prePage': 0,
     'size': 2,
     'startRow': 0,
-    'total': 300,
+    'total': '@integer(40,100)',
   });
 }
 

@@ -8,8 +8,8 @@ message.config({
   duration: 2,
   maxCount: 1,
 });
-// let baseUrl =  '';
-let baseUrl =  'http://47.105.192.57:7088';
+let baseUrl =  '';
+// let baseUrl =  'http://47.105.192.57:7088';
 
 const instance = axios.create({
     timeout: 5000, // 超时时间

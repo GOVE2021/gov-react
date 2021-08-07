@@ -25,6 +25,7 @@ class ItemSalary extends Component {
       detailSalary: null,
       salaryId: null,
       personList: [], // 人员列表
+      selectTotalPerson: 0, // 搜索结果匹配人数
     };
   }
 
@@ -85,7 +86,10 @@ class ItemSalary extends Component {
       }).then(({ code, msg, data }) => {
         this.setState({ psrsonListLoading: false });
         if (code === 200){
-          this.setState({ personList: data?.list || [] });
+          this.setState({
+            personList: (data?.list || []).slice(0,50),
+            selectTotalPerson: data?.total || 0
+          });
         }else{
           message.error(msg);
           this.setState({ personList: [] });
@@ -257,6 +261,7 @@ class ItemSalary extends Component {
       this.setState({
         isEdit: false,
         detailSalary: itemData,
+        personList: [],
       });
     }
   }
@@ -270,6 +275,7 @@ class ItemSalary extends Component {
       isEdit: false,
       itemId: null,
       salaryId: null,
+      personList: [],
     });
   }
   /**
@@ -301,6 +307,9 @@ class ItemSalary extends Component {
     detailSalary.salaryId = moment(value).format('YYYY-MM');
     this.setState({ detailSalary });
   }
+  /**
+   * 选择人员
+   */
   selectAddPersong = (e) => {
     const { personList } = this.state;
     const selectEmployeeObj = personList?.find(k => k?.userId === e) || {};
@@ -309,6 +318,23 @@ class ItemSalary extends Component {
       detailSalary: getAddSalaryDataList(e),
       selectEmployeeStatus: selectEmployeeObj?.employeeStatus
     });
+  }
+  /**
+   * 生成搜索人员列表
+   * @param {array} list 
+   */
+  creatPersonOptingList = (list) => {
+    if(list.length){
+      return list.map(item => {
+        return <Option value={item.userId} label={item.realname} text={item?.realname}>
+          <div style={{fontSize: 14}}>{item?.realname || '-'}</div>
+          <div style={{fontSize: 12,color: 'gray'}}>{item?.departmentName}</div>
+          <div style={{fontSize: 12,color: 'gray'}}>{item?.idNo}</div>
+        </Option>
+      })
+    }else{
+      return <Option value="disabled" disabled >无结果</Option>
+    }
   }
   render() {
     const { itemVisible } = this.props;
@@ -319,6 +345,7 @@ class ItemSalary extends Component {
       modalTitle,
       selectPersonId,
       personList,
+      selectTotalPerson,
       psrsonListLoading,
       selectEmployeeStatus,
     } = this.state;
@@ -366,19 +393,16 @@ class ItemSalary extends Component {
                               onChange={this.selectAddPersong}
                               onSearch={this.getPersonByKeywords}
                               loading={psrsonListLoading}
-                              filterOption={false}
-                            >{
-                              personList.length?
-                                personList.map(item => {
-                                  return <Option value={item.userId} label={item.realname} text={item?.realname}>
-                                    <div style={{fontSize: 14}}>{item?.realname || '-'}</div>
-                                    <div style={{fontSize: 12,color: 'gray'}}>{item?.departmentName}</div>
-                                    <div style={{fontSize: 12,color: 'gray'}}>{item?.idNo}</div>
-                                  </Option>
-                                })
-                              :
-                                <Option value="disabled" disabled >无结果</Option>
-                            }
+                              filterOption={false}dropdownRender={menu => (
+                              <div>
+                                {menu}
+                                {selectTotalPerson > 50 && <div className={style.personListTips}>
+                                  <span>{`当前展示50/${selectTotalPerson}人，请输入全名/身份证号进行精确搜索`}</span>
+                                </div>}
+                              </div>
+                            )}
+                            >
+                              {this.creatPersonOptingList(personList)}
                             </Select>
                           </div>
                         </div>
