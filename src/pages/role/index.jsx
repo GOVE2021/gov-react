@@ -319,7 +319,7 @@ class department extends Component {
                 multiple
                 labelInValue={true}
                 treeCheckStrictly={true}
-                treeDefaultExpandAll={true}
+                // treeDefaultExpandAll={true}
                 getPopupContainer={(reactNode) => reactNode}
                 dropdownClassName={style.dropdownClass}
                 treeData={departmentList}
