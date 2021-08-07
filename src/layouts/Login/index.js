@@ -38,7 +38,6 @@ class UserLogin extends Component {
   };
 
   handleSelectChange = e => {
-    console.log(e.target.value, getCookie(e.target.value));
     if (getCookie(e.target.value)) {
       this.props.form.setFieldsValue({
         password: getCookie(e.target.value),
@@ -134,7 +133,6 @@ class UserLogin extends Component {
                     valuePropName: 'checked',
                     initialValue: true,
                     getValueFromEvent(e) {
-                      console.log(e);
                       return e.target.checked;
                     },
                   })(<Checkbox>记住密码</Checkbox>)}
