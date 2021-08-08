@@ -434,7 +434,6 @@ export const calculateTotal = (objKey,detail) => {
   Object.keys(objKey).forEach( key => {
     if(Number(detail[key])){
       countPay = countPay + (Number(detail[key]) * 100);
-      console.log(key,objKey[key],detail[key]);
     }
   });
   return countPay/100;

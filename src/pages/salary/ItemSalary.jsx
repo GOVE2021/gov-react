@@ -132,8 +132,9 @@ class ItemSalary extends Component {
    * @param {value} vale 
    */
   setNewItemData = (key, value) => {
-    const regNum = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/;
-    if(regNum.test(value) || (value.charAt(value.length-1) === '.' && value.indexOf('.') === value.length-1) || value.length === 0){
+    const lastChart = value.charAt(value.length-1);
+    const isHasOneDot = value.indexOf('.') > 0 ? (value.split('.').length === 2 && value.split('.')?.[1]?.length <= 2) : true;
+    if((!isNaN(lastChart) || lastChart === '.') && isHasOneDot ){
       const { detailSalary } = this.state;
       const newData = JSON.parse(JSON.stringify(detailSalary));
       newData[key] = value;
