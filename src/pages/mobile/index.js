@@ -8,7 +8,7 @@ import { logOut } from '@utils/authLocal';
 import DateModal from './DataModals';
 
 import { ROLE_LIST_MAP, PERSON_TYPE_LIST } from '../utils';
-import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, OLD_WORKER_SALARY_MAP } from '../salary/cont'
+import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, OLD_WORKER_SALARY_MAP, calculateTotal } from '../salary/cont'
 
 import userInfoBG from '@assets/mobileBg.jpeg';
 import style from './index.css';
@@ -158,7 +158,10 @@ class ownSalary extends Component {
               </div>
               <div className={style.groupTitle}>
                 <div className={style.line} style={{borderBottomColor: 'Chocolate'}}></div>
-                <div className={style.text} style={{backgroundColor: 'Chocolate'}}>工资构成</div>
+                <div className={style.text} style={{backgroundColor: 'Chocolate'}}>
+                  工资构成&nbsp;&nbsp;
+                  总计: {calculateTotal(userPayDetailLabel, detailSalary)} 元
+                </div>
               </div>
               <div>
                 {
@@ -179,7 +182,10 @@ class ownSalary extends Component {
                 <>
                   <div className={style.groupTitle}>
                     <div className={style.line} style={{borderBottomColor: 'DarkMagenta'}}></div>
-                    <div className={style.text} style={{backgroundColor: 'DarkMagenta'}}>代扣项目</div>
+                    <div className={style.text} style={{backgroundColor: 'DarkMagenta'}}>
+                      代扣项目&nbsp;&nbsp;
+                      总计: {calculateTotal(REDUCE_SALARY_MAP, detailSalary)} 元
+                    </div>
                   </div>
                   <div>
                     {

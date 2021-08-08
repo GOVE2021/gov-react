@@ -1,4 +1,5 @@
-import { PERSON_TYPE_LIST } from '../utils';
+import { PERSON_TYPE_LIST, getByteLen } from '../utils';
+import { cloneDeep } from 'lodash';
 
 
 export const ADD_TYPE = 'add';
@@ -29,7 +30,7 @@ export const BASE_TITLE_LIST = [
     dataIndex: 'idNo',
     align: 'center',
     ellipsis: true,
-    width: 180,
+    width: 200,
   },{
     title: '单位',
     dataIndex: 'departmentName',
@@ -50,20 +51,20 @@ export const BASE_TITLE_LIST = [
 export const IN_WORK_TITLE_LIST = [
   {
     dataIndex: 'payment',
-    title: '实发工资(¥)',
+    title: '实发工资',
     align: 'center',
     width: 120,
     render: allPayDom,
   },
   {
-    title: '职务岗位工资(¥)',
+    title: '职务岗位工资',
     dataIndex: 'dutySalary',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
-    title: '级别技术等级工资(¥)',
+    title: '级别技术等级工资',
     dataIndex: 'technicalSalary',
     align: 'center',
     width: 100,
@@ -71,28 +72,28 @@ export const IN_WORK_TITLE_LIST = [
   },
   {
     dataIndex: 'postSalary',
-    title: '岗位工资(¥)',
+    title: '岗位工资',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'levelSalary',
-    title: '薪级工资(¥)',
+    title: '薪级工资',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'workAllowance',
-    title: '工作津贴（基础绩效)',
+    title: '工作津贴(基础绩效)',
     align: 'center',
     width: 100,
     render: transAddDom,
   },
   {
     dataIndex: 'performanceAllowance',
-    title: '生活津贴（奖励绩效）',
+    title: '生活津贴(奖励绩效)',
     align: 'center',
     width: 100,
     render: transAddDom,
@@ -279,7 +280,7 @@ export const IN_WORK_TITLE_LIST = [
 export const OUT_WORK_TITLE_LIST = [
   {
     dataIndex: 'payment',
-    title: '实发金额(¥)',
+    title: '实发金额',
     align: 'center',
     width: 120,
     render: allPayDom,
@@ -424,4 +425,43 @@ export const getAddSalaryDataList = (e) => {
   });
   newData['userId'] = ADD_TYPE;
   return newData;
+}
+/**
+ * 计算合计金额
+ */
+export const calculateTotal = (objKey,detail) => {
+  let countPay = 0;
+  Object.keys(objKey).forEach( key => {
+    if(Number(detail[key])){
+      countPay = countPay + (Number(detail[key]) * 100);
+      console.log(key,objKey[key],detail[key]);
+    }
+  });
+  return countPay/100;
+}
+/**
+ * 生成总计表头
+ */
+export const crerateTitleTotal = (data = {},titleArr,status) => {
+  const newTitleArr = [];
+  if (status === 1){
+    cloneDeep(titleArr).forEach(k => {
+      const isShow = IN_WORK_TITLE_LIST.some(n => n?.dataIndex === k.dataIndex);
+      const salaryStr = `总计: ${data?.[k.dataIndex + 'Total'] || '--'}`;
+      const titleLen = getByteLen(k.title);
+      const salaryLen = getByteLen(salaryStr);
+      const showLen = titleLen > salaryLen ? titleLen : salaryLen;
+      if(isShow){
+        k.title = (
+          <div>
+            <div>{k.title}</div>
+            <div>{salaryStr}</div>
+          </div>
+        )
+        k.width = showLen * 11;
+      }
+      newTitleArr.push(k);
+    })
+  }
+  return newTitleArr;
 }

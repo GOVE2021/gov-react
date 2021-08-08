@@ -15,7 +15,13 @@ import {
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import ItemSalary from './ItemSalary';
-import { BASE_TITLE_LIST, IN_WORK_TITLE_LIST, OUT_WORK_TITLE_LIST, ADD_TYPE } from './cont';
+import {
+  BASE_TITLE_LIST,
+  IN_WORK_TITLE_LIST,
+  OUT_WORK_TITLE_LIST,
+  ADD_TYPE,
+  crerateTitleTotal,
+} from './cont';
 import { PERSON_TYPE_LIST } from '../utils';
 import zhCN from 'antd/es/locale/zh_CN'; 
 import style from './style.css';
@@ -224,9 +230,9 @@ class salary extends Component {
       tableTitle,
       selectEmployeeStatus,
     } = this.state;
-    
     const employTitleList = selectEmployeeStatus === PERSON_TYPE_LIST[0].key ? IN_WORK_TITLE_LIST : OUT_WORK_TITLE_LIST;
     const coulmnsData = userDetail?.roleType !== 1 ? [...BASE_TITLE_LIST, ...employTitleList, ...tableTitle] : [...BASE_TITLE_LIST, ...employTitleList];
+    const titleData = selectEmployeeStatus === PERSON_TYPE_LIST[0].key ? salaryList?.salaryInfoTotalDto : salaryList?.retireTotalDto;
     return (
       <div className={style.tableList}>
         <div className={style.selectBar}>
@@ -287,7 +293,8 @@ class salary extends Component {
         </div>
         <ConfigProvider locale={zhCN}>
           <Table
-            columns={coulmnsData} 
+            columns={crerateTitleTotal(titleData,coulmnsData,selectEmployeeStatus)} 
+            // columns={coulmnsData} 
             dataSource={salaryList?.list || []} 
             rowKey={record => record._id} 
             scroll={{

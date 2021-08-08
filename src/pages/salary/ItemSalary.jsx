@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Modal, Spin, Button, Input, DatePicker, Select, message } from 'antd';
-import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, ADD_TYPE, OLD_WORKER_SALARY_MAP, getAddSalaryDataList } from './cont';
+import {
+  ADD_SALARY_MAP,
+  REDUCE_SALARY_MAP,
+  ADD_TYPE,
+  OLD_WORKER_SALARY_MAP,
+  getAddSalaryDataList,
+  calculateTotal,
+} from './cont';
 import { PERSON_TYPE_LIST } from '../utils';
 import moment from 'moment';
 
@@ -145,7 +152,7 @@ class ItemSalary extends Component {
       return (
         <div className={style.userItem} key={item}>
             <div className={style.calssfiy}>{`${dataMap?.[item] || '--'}:`}</div>
-            <div className={style.value}>{showValue}元</div>
+            <div className={style.value}>{showValue}</div>
         </div>
       )
     });
@@ -427,7 +434,10 @@ class ItemSalary extends Component {
                   {
                     (selectPersonId || detailSalary?.userId !== ADD_TYPE) &&
                     <>
-                      <div className={style.classifyTitle}>工资构成</div>
+                      <div className={style.classifyTitle}>
+                        工资构成&nbsp;&nbsp;
+                        (总计: {calculateTotal(baseLabelList,detailSalary)} 元)
+                      </div>
                       <div className={style.addSalaryDom}>
                         {
                           isEdit ? this.renderSalaryForm(baseLabelList,detailSalary) : this.renderSalaryShowDom(baseLabelList,detailSalary)
@@ -436,7 +446,10 @@ class ItemSalary extends Component {
                     
                       {isInWork && 
                         <>
-                          <div className={style.classifyTitle}>代扣项目</div>
+                          <div className={style.classifyTitle}>
+                            代扣项目&nbsp;&nbsp;
+                            (总计: {calculateTotal(REDUCE_SALARY_MAP,detailSalary)} 元)
+                          </div>
                           <div className={style.addSalaryDom}>
                             {
                               isEdit ? this.renderSalaryForm(REDUCE_SALARY_MAP,detailSalary) : this.renderSalaryShowDom(REDUCE_SALARY_MAP,detailSalary)

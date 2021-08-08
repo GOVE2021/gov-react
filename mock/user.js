@@ -55,7 +55,7 @@ const detailData = {
     roleType: 3,
     departmentName: '临时工部门',
     address: '云南省 保山市 施甸县',
-    employeeStatus: 2,
+    employeeStatus: 1,
   },
 };
 

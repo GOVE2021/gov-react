@@ -121,10 +121,11 @@
 }
 .groupTitle .text{
   font-weight: 600;
-  width: 100px;
-  height: 24px;
-  padding: 5px 0;
-  line-height: 14px;
+  width: auto;
+  height: auto;
+  padding: 0px 12px;
+  white-space:nowrap;
+  line-height: 24px;
   position: absolute;
   left: 50%;
   color: #FFF;

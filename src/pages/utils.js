@@ -326,3 +326,16 @@ export const transDepartmentIds = (arr) => {
   });
   return idsArr;
 }
+
+// 统计字符长度
+export const getByteLen = (string) => {
+  let len = 0;
+  for (let i = 0; i < string.length; i++) {
+    if (string.charCodeAt(i) > 127 || string.charCodeAt(i) === 94) {
+      len += 2;
+    } else {
+      len++;
+    }
+  }
+  return len;
+};
