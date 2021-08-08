@@ -294,7 +294,6 @@ class salary extends Component {
         <ConfigProvider locale={zhCN}>
           <Table
             columns={crerateTitleTotal(titleData,coulmnsData,selectEmployeeStatus)} 
-            // columns={coulmnsData} 
             dataSource={salaryList?.list || []} 
             rowKey={record => record._id} 
             scroll={{

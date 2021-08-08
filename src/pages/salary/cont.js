@@ -444,24 +444,23 @@ export const calculateTotal = (objKey,detail) => {
  */
 export const crerateTitleTotal = (data = {},titleArr,status) => {
   const newTitleArr = [];
-  if (status === 1){
-    cloneDeep(titleArr).forEach(k => {
-      const isShow = IN_WORK_TITLE_LIST.some(n => n?.dataIndex === k.dataIndex);
-      const salaryStr = `总计: ${data?.[k.dataIndex + 'Total'] || '--'}`;
-      const titleLen = getByteLen(k.title);
-      const salaryLen = getByteLen(salaryStr);
-      const showLen = titleLen > salaryLen ? titleLen : salaryLen;
-      if(isShow){
-        k.title = (
-          <div>
-            <div>{k.title}</div>
-            <div>{salaryStr}</div>
-          </div>
-        )
-        k.width = showLen * 11;
-      }
-      newTitleArr.push(k);
-    })
-  }
+  const currentSorceList = status === PERSON_TYPE_LIST[0].key ? IN_WORK_TITLE_LIST : OUT_WORK_TITLE_LIST;
+  cloneDeep(titleArr).forEach(k => {
+    const isShow = currentSorceList.some(n => n?.dataIndex === k.dataIndex);
+    const salaryStr = `总计: ${data?.[k.dataIndex + 'Total'] || '--'}`;
+    const titleLen = getByteLen(k.title);
+    const salaryLen = getByteLen(salaryStr);
+    const showLen = titleLen > salaryLen ? titleLen : salaryLen;
+    if(isShow){
+      k.title = (
+        <div>
+          <div>{k.title}</div>
+          <div>{salaryStr}</div>
+        </div>
+      )
+      k.width = Math.ceil(showLen * 10.9);
+    }
+    newTitleArr.push(k);
+  })
   return newTitleArr;
 }

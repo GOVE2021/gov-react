@@ -44,6 +44,21 @@ const responseData = (status) => {
       'size': 0,
       'startRow': 0,
       'total': '@integer(30,100)',
+      'retireTotalDto':
+      {
+        'basePensionTotal': 276.93,
+        'financeSubsidyTotal': 366.9,
+        'lifeSubsidyTotal': 34757.65,
+        'paymentTotal': 2347027.15,
+        'pensionTotal': 365998.23,
+        'personalPensionTotal': 4558.57,
+        'reformSubsidyTotal': 258810.6,
+        'retainedAllowanceTotal': 24807.4,
+        'subsidyTotalTotal': 257910.56,
+        'transitionalPensionTotal': 26219.34,
+        'withholdingTotal': 1574.75,
+
+      }
     })
   }
   return Mock.mock({
@@ -116,6 +131,40 @@ const responseData = (status) => {
     'size': 0,
     'startRow': 0,
     'total': '@integer(30,100)',
+    'salaryInfoTotalDto': 
+    {
+      'censorateAwardTotal': 23,
+      'coolingAllowanceTotal': 26.45,
+      'disabledAllowanceTotal': 46.78,
+      'dutySalaryTotal': 22367.4,
+      'hardshipAllowanceTotal': 23,
+      'heatingAllowanceTotal': 26,
+      'housingFundTotal': 1238,
+      'inspectAllowanceTotal': 23,
+      'levelSalaryTotal': 12422.57,
+      'medicalInsuranceTotal': 327,
+      'normalAwardTotal': 26,
+      'nursesTeachersSalaryTotal': 91,
+      'occupationalAnnuityTotal': 9,
+      'oneChildAllowanceTotal': 55,
+      'otherAllowanceTotal': 23,
+      'otherWithholdTotal': 59,
+      'outstandingAwardTotal': 5023,
+      'paymentTotal': 234336.99,
+      'pensionTotal': 13,
+      'performanceAllowanceTotal': 69,
+      'personalTaxTotal': 70,
+      'policeRankAllowanceTotal': 26,
+      'postSalaryTotal': 290,
+      'retainedAllowanceTotal': 81,
+      'teachingNursingAllowanceTotal': 61,
+      'technicalSalaryTotal': 78.6,
+      'thirdWorkAwardTotal': 123,
+      'townshipAllowanceTotal': 46,
+      'trafficTotal': 69,
+      'workAllowanceTotal': 361,
+      'yearAwardTotal': 23,
+    }
   })
 };
 
