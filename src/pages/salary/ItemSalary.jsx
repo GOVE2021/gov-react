@@ -165,7 +165,10 @@ class ItemSalary extends Component {
    */
   renderFooterDom = () => {
     const { isEdit, salaryId, isLoadingDetail, detailSalary, editLoading } = this.state;
-    const { roleType } = this.props;
+    const { roleType, itemVisible } = this.props;
+    if(!itemVisible){
+      return null;
+    }
     return (
       <div className={style.modalFooter}>
         {isEdit ? 
