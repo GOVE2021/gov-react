@@ -6,6 +6,7 @@ import {
   Radio,
   DatePicker,
   Button,
+  Modal,
   TreeSelect,
   Icon,
   ConfigProvider,
@@ -39,6 +40,9 @@ class salary extends Component {
       selectEmployeeStatus: null, // 搜索员工状态
       selectMounth:  moment().format('YYYY-MM'), // 月份筛选
       itemVisible: false, // 显示个人薪资
+      deleteItem: null, // 删除个人薪资
+      deleteVisible: false, // 删除薪资弹窗
+      deleteLoading: false,
       pageSize: 10,
       pageNum: 1,
       loginUserId: null, // 登陆账号id
@@ -188,7 +192,10 @@ class salary extends Component {
         className={style.handleCss}
         onClick={(e) => {
           e.stopPropagation();// 阻止合成事件间的冒泡
-          this.deleteSalartData(item);
+          this.setState({
+            deleteVisible: true,
+            deleteItem: item,
+          })
         }}
       >
         删除薪资
@@ -198,7 +205,9 @@ class salary extends Component {
    * 删除薪资信息
    * @returns null
    */
-  deleteSalartData = (item) => {
+  deleteSalartData = () => {
+    const item = this.state.deleteItem;
+    this.setState({deleteLoading: true});
     this.props.dispatch({
       type: 'Salary/deleteSalaryData',
       payload: {
@@ -206,8 +215,10 @@ class salary extends Component {
         employeeStatus: item?.employeeStatus || '',
       }
     }).then(({ code, msg }) => {
+      this.setState({deleteLoading: false});
       if(code ===200){
         this.getListByParams();
+        this.setState({deleteVisible: false});
         message.success(msg);
       } else {
         message.error(msg);
@@ -229,6 +240,9 @@ class salary extends Component {
       itemVisible,
       tableTitle,
       selectEmployeeStatus,
+      deleteVisible,
+      deleteItem,
+      deleteLoading,
     } = this.state;
     const employTitleList = selectEmployeeStatus === PERSON_TYPE_LIST[0].key ? IN_WORK_TITLE_LIST : OUT_WORK_TITLE_LIST;
     const coulmnsData = userDetail?.roleType !== 1 ? [...BASE_TITLE_LIST, ...employTitleList, ...tableTitle] : [...BASE_TITLE_LIST, ...employTitleList];
@@ -333,6 +347,32 @@ class salary extends Component {
             });
           }}
         />}
+
+        <Modal
+          title={`确认删除${deleteItem?.realname || '-'}的薪资？`}
+          visible={deleteVisible}
+          maskClosable={false}
+          closable={false}
+          onCancel={() => {
+            this.setState({deleteVisible: false});
+          }}
+          onOk={this.deleteSalartData}
+          cancelText={'取消'}
+          okText={'删除'}
+          okType={'danger'}
+          okButtonProps={{
+            disabled: deleteLoading,
+            loading: deleteLoading
+          }}
+          cancelButtonProps={{disabled: deleteLoading}}
+        >
+          <p>{`确认删除${deleteItem?.salaryId}账期的薪资？`}</p>
+          <p>
+            <span style={{color: 'red',marginLeft: 10}}>
+              {'删除后不可恢复！'}
+            </span>
+          </p>
+        </Modal>
       </div>
     );
   }
