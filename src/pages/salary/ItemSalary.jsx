@@ -30,6 +30,7 @@ class ItemSalary extends Component {
       modalTitle: '',
       psrsonListLoading: false,
       detailSalary: null,
+      editLoading: false,
       salaryId: null,
       personList: [], // 人员列表
       selectTotalPerson: 0, // 搜索结果匹配人数
@@ -163,7 +164,7 @@ class ItemSalary extends Component {
    * @returns DOM
    */
   renderFooterDom = () => {
-    const { isEdit, salaryId, isLoadingDetail, detailSalary } = this.state;
+    const { isEdit, salaryId, isLoadingDetail, detailSalary, editLoading } = this.state;
     const { roleType } = this.props;
     return (
       <div className={style.modalFooter}>
@@ -171,9 +172,12 @@ class ItemSalary extends Component {
           <div className={style.btnList}>
             <Button
               onClick={this.onCancleEdit}
+              disabled={editLoading}
             >取消</Button>
             <Button
               type="primary"
+              disabled={editLoading}
+              loading={editLoading}
               onClick={() => {
                 if(detailSalary?.userId === ADD_TYPE){
                   this.addSalaryData();
@@ -230,10 +234,12 @@ class ItemSalary extends Component {
     delete subData.id;
     subData.userId = selectPersonId;
     subData.employeeStatus = selectEmployeeStatus;
+    this.setState({editLoading: true});
     this.props.dispatch({
       type: 'Salary/addSalaryData',
       payload: subData,
     }).then(({ code, msg }) => {
+      this.setState({editLoading: false});
       if(code === 200){
         this.setState({ selectPersonId: null })
         this.closeModalChange()
@@ -247,10 +253,12 @@ class ItemSalary extends Component {
    */
   onUpdateSalaryData = () => {
     const { detailSalary } = this.state;
+    this.setState({editLoading: true});
     this.props.dispatch({
       type: 'Salary/updateSalaryData',
       payload: detailSalary,
     }).then(({ code, msg }) => {
+      this.setState({editLoading: false});
       if(code === 200){
         this.closeModalChange();
       } else {
