@@ -22,6 +22,7 @@ class department extends Component {
       keywords: '', // 搜索关键字
       selectRoleValue: undefined, // 搜索选择的角色
       selectDepartIds: [], // 搜索选择的部门
+      editLoading: false,
       titleArray: [ // 操作栏
         {
           title: '权限操作',
@@ -92,6 +93,7 @@ class department extends Component {
       editRoleValue, // 当前选择的角色
       selectDpartment,
     } = this.state;
+    this.setState({editLoading: true});
     this.props.dispatch({
       type: 'Role/editRole',
       payload: {
@@ -100,6 +102,7 @@ class department extends Component {
         "departmentIds": (selectDpartment || []).map(k=> k?.value),
       }
     }).then(({ code, msg }) => {
+      this.setState({editLoading: false});
       if (code === 200) {
         this.setState({ 
           itemData: null,
@@ -201,6 +204,7 @@ class department extends Component {
       roleList,
       roleListLoading,
       departmentList,
+      userDetail,
     } = this.props;
     const {
       itemData, //当前账号数据
@@ -211,8 +215,9 @@ class department extends Component {
       selectRoleValue,
       selectDepartIds,
       titleArray,
+      editLoading,
     } = this.state;
-
+    const roleOptionList = ROLE_LIST_MAP.filter(n => n.key <= userDetail?.roleType);
     return <div className={style.content}>
       <div className={style.selectBar}>
         <Input
@@ -233,7 +238,7 @@ class department extends Component {
           placeholder={'请选择角色'}
         >
           {
-            ROLE_LIST_MAP.map(item => {
+            roleOptionList.map(item => {
               return <Option value={item.key}>{item.name}</Option>
             })
           }
@@ -290,6 +295,11 @@ class department extends Component {
         cancelText={'取消'}
         onOk={this.handleOk}
         onCancel={() => {this.setState({ visible: false })}}
+        okButtonProps={{
+          disabled: editLoading,
+          loading: editLoading
+        }}
+        cancelButtonProps={{disabled: editLoading}}
       >
         <div className={style.modalLine}>
             <div className={style.label}>角色类型：</div>
@@ -303,7 +313,7 @@ class department extends Component {
                 placeholder={'请选择角色'}
               >
                 {
-                  ROLE_LIST_MAP.map(item => {
+                  roleOptionList.map(item => {
                     return <Option value={item.key}>{item.name}</Option>
                   })
                 }
@@ -319,7 +329,6 @@ class department extends Component {
                 multiple
                 labelInValue={true}
                 treeCheckStrictly={true}
-                // treeDefaultExpandAll={true}
                 getPopupContainer={(reactNode) => reactNode}
                 dropdownClassName={style.dropdownClass}
                 treeData={departmentList}
@@ -342,6 +351,7 @@ class department extends Component {
 }
 
 const mapStateToProps = (state) =>({
+  userDetail: state.Users.userDetail || {},
   roleList: state.Role?.roleList || [],
   roleListLoading: state.Role?.roleListLoading || false,
   departmentList: state.Role?.departmentList || [],
