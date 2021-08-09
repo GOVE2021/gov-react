@@ -24,6 +24,7 @@ class UserDetail extends Component {
       itemId: null,
       isEdit: false,
       itemData: null,
+      isSubmintLoading: false,
     };
   }
 
@@ -148,7 +149,7 @@ class UserDetail extends Component {
                 case 'department':
                   return (
                     <TreeSelect
-                      allowClear
+                      allowClear={false}
                       getPopupContainer={(reactNode) => reactNode}
                       dropdownClassName={style.dropdownClass}
                       treeData={departmentList}
@@ -163,19 +164,28 @@ class UserDetail extends Component {
                 case 'beginWorkTime':
                 case 'birthday':
                   return (
-                    <DatePicker 
+                    <DatePicker
+                      allowClear={false}
                       value={value? moment(value,'YYYY-MM-DD') : undefined}
                       format={'YYYY-MM-DD'}
                       style={{width: '100%'}}
                       getPopupContainer={(reactNode) => reactNode}
-                      placeholder={'请选日期'}
+                      placeholder={'请选择日期'}
                       dropdownClassName={style.dropdownClass}
                       onChange={(e) => {
                         this.setNewItemData(item, moment(e).format('YYYY-MM-DD'));
                       }}
                     />
                   )
-                default:
+                case 'idNo':
+                  return (
+                    <Input
+                      value={value}
+                      placeholder={'请输入身份证号码'}
+                      onChange={(e) => this.setNewItemData(item, e?.target?.value || '')}
+                    />
+                  )
+                case 'realname':
                   return (
                     <Input
                       value={value}
@@ -183,6 +193,8 @@ class UserDetail extends Component {
                       onChange={(e) => this.setNewItemData(item, e?.target?.value || '')}
                     />
                   )
+                default:
+                  return null
               }
             })()}</div>
           </div>
@@ -247,7 +259,7 @@ class UserDetail extends Component {
    * @returns DOM
    */
   renderFooterDom = () => {
-    const { isEdit } = this.state;
+    const { isEdit, isSubmintLoading } = this.state;
     const { itemData, isAddType } = this.props;
     return (
       <div className={style.modalFooter}>
@@ -263,8 +275,15 @@ class UserDetail extends Component {
                     itemData,
                   }) 
                 }
-              }}>{isAddType?'取消':'取消编辑'}</Button>
-            <Button type="primary" onClick={this.onSubmitData}>{isAddType?'保存':'保存修改'}</Button>
+              }}
+              disabled={isSubmintLoading}
+            >{isAddType?'取消':'取消编辑'}</Button>
+            <Button
+              type="primary"
+              onClick={this.onSubmitData}
+              disabled={isSubmintLoading}
+              loading={isSubmintLoading}
+            >{isAddType?'保存':'保存修改'}</Button>
           </>
           :
           <>
@@ -294,10 +313,12 @@ class UserDetail extends Component {
     }
     subItemData.departmentId = subItemData.department.id;
     delete subItemData.department;
+    this.setState({isSubmintLoading: true});
     this.props.dispatch({
       type: apiType,
       payload: {...subItemData},
     }).then(({ code, msg }) => {
+      this.setState({isSubmintLoading: false});
       if (code === 200){
         reflashList();
         this.closeModalChange();
