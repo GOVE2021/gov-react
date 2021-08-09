@@ -9,7 +9,7 @@ message.config({
   maxCount: 1,
 });
 // let baseUrl =  '';
-let baseUrl =  'http://47.105.192.57:7088';
+let baseUrl =  'http://61.150.107.199:7081';
 
 const instance = axios.create({
     timeout: 5000, // 超时时间
