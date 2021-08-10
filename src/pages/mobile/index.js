@@ -122,7 +122,7 @@ class ownSalary extends Component {
         <img className={style.userBg} src={userInfoBG} alt='' />
         <div className={style.userInfo}>
           <div className={style.title}>
-              <div className={style.topTitle}>绥德县行政事业单位人员工资单</div>
+              <div className={style.topTitle}>绥德县行政事业单位职工工资单</div>
               <div className={style.logOut} onClick={this.logOut}>退出</div>
           </div>
           <div className={style.name}>{`你好 ${userDetail?.realname}`}{userStatue? ' (' + userStatue + ')' : ''}</div>
