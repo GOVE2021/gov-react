@@ -232,6 +232,13 @@ export const IN_WORK_TITLE_LIST = [
     render: transAddDom,
   },
   {
+    dataIndex: 'shouldPayment',
+    title: '代发合计',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
     dataIndex: 'pension',
     title: '养老金',
     align: 'center',
@@ -272,6 +279,13 @@ export const IN_WORK_TITLE_LIST = [
     align: 'center',
     width: 100,
     render: transDeductDom,
+  },
+  {
+    dataIndex: 'withhold',
+    title: '代扣合计',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
   },
 ];
 /**
