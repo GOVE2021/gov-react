@@ -285,7 +285,7 @@ export const IN_WORK_TITLE_LIST = [
     title: '代扣合计',
     align: 'center',
     width: 100,
-    render: transAddDom,
+    render: transDeductDom,
   },
 ];
 /**
@@ -365,6 +365,13 @@ export const OUT_WORK_TITLE_LIST = [
   {
     dataIndex: 'withholding',
     title: '补扣发',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'shouldPayment',
+    title: '代发合计',
     align: 'center',
     width: 100,
     render: transAddDom,
