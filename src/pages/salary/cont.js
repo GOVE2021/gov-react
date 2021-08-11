@@ -50,8 +50,22 @@ export const BASE_TITLE_LIST = [
  */
 export const IN_WORK_TITLE_LIST = [
   {
+    dataIndex: 'shouldPayment',
+    title: '应发总计',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
+    dataIndex: 'withhold',
+    title: '代扣总计',
+    align: 'center',
+    width: 100,
+    render: transDeductDom,
+  },
+  {
     dataIndex: 'payment',
-    title: '实发工资',
+    title: '实发总计',
     align: 'center',
     width: 120,
     render: allPayDom,
@@ -232,13 +246,6 @@ export const IN_WORK_TITLE_LIST = [
     render: transAddDom,
   },
   {
-    dataIndex: 'shouldPayment',
-    title: '代发合计',
-    align: 'center',
-    width: 100,
-    render: transAddDom,
-  },
-  {
     dataIndex: 'pension',
     title: '养老金',
     align: 'center',
@@ -280,21 +287,21 @@ export const IN_WORK_TITLE_LIST = [
     width: 100,
     render: transDeductDom,
   },
-  {
-    dataIndex: 'withhold',
-    title: '代扣合计',
-    align: 'center',
-    width: 100,
-    render: transDeductDom,
-  },
 ];
 /**
  * 退休人员表头
  */
 export const OUT_WORK_TITLE_LIST = [
   {
+    dataIndex: 'shouldPayment',
+    title: '应发总计',
+    align: 'center',
+    width: 100,
+    render: transAddDom,
+  },
+  {
     dataIndex: 'payment',
-    title: '实发金额',
+    title: '实发总计',
     align: 'center',
     width: 120,
     render: allPayDom,
@@ -365,13 +372,6 @@ export const OUT_WORK_TITLE_LIST = [
   {
     dataIndex: 'withholding',
     title: '补扣发',
-    align: 'center',
-    width: 100,
-    render: transAddDom,
-  },
-  {
-    dataIndex: 'shouldPayment',
-    title: '代发合计',
     align: 'center',
     width: 100,
     render: transAddDom,
@@ -475,10 +475,10 @@ export const crerateTitleTotal = (data = {},titleArr,status) => {
       k.title = (
         <div>
           <div>{k.title}</div>
-          <div>{salaryStr}</div>
+          <div style={{color: '#1890ff',fontSize: 15, transform: 'scale(0.8)', fontWeight: 400}}>{salaryStr}</div>
         </div>
       )
-      k.width = Math.ceil(showLen * 10.9);
+      k.width = Math.ceil(showLen * 12);
     }
     newTitleArr.push(k);
   })
