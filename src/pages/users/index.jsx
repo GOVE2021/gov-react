@@ -80,6 +80,7 @@ class users extends Component {
    * @param {Array} value 
    */
   onDepartmentChange = value => {
+    console.log(value,'&&&&')
     this.setState({
       selectDpartment: value
     }, () => {
@@ -255,14 +256,14 @@ class users extends Component {
             maxTagCount={3}
             showSearch={false}
             labelInValue={true}
-            treeCheckStrictly={true}
+            treeCheckStrictly={false}
             treeData={departmentList}
             value={selectDpartment}
             dropdownClassName={style.dropdownClass}
             onChange={this.onDepartmentChange}
             treeCheckable={true}
             // treeNodeLabelProp={'departmentName'}
-            // showCheckedStrategy={'SHOW_PARENT'}
+            showCheckedStrategy={'SHOW_CHILD'}
             placeholder={'按部门搜索'}
             style={{width: 200, marginLeft: 10}}
           />
