@@ -256,14 +256,14 @@ class users extends Component {
             maxTagCount={3}
             showSearch={false}
             labelInValue={true}
-            treeCheckStrictly={false}
+            treeCheckStrictly={true}
             treeData={departmentList}
             value={selectDpartment}
             dropdownClassName={style.dropdownClass}
             onChange={this.onDepartmentChange}
             treeCheckable={true}
             // treeNodeLabelProp={'departmentName'}
-            showCheckedStrategy={'SHOW_CHILD'}
+            // showCheckedStrategy={'SHOW_CHILD'}
             placeholder={'按部门搜索'}
             style={{width: 200, marginLeft: 10}}
           />
