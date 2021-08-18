@@ -1,11 +1,10 @@
 import React,{ Component } from 'react';
 import { connect } from 'dva';
 import { Spin, message } from 'antd';
-import router from 'umi/router';
 import moment from 'moment';
 
-import { logOut } from '@utils/authLocal';
 import DateModal from './DataModals';
+import EditModal from './EditModals';
 
 import { ROLE_LIST_MAP, PERSON_TYPE_LIST } from '../utils';
 import { ADD_SALARY_MAP, REDUCE_SALARY_MAP, OLD_WORKER_SALARY_MAP, calculateTotal } from '../salary/cont'
@@ -19,6 +18,7 @@ class ownSalary extends Component {
     this.state = {
       isLoadingUserInfo: true,
       visible: false,
+      editVisible: false,
       loginUserId: null,
       selectEmployeeStatus: null,
       defDateStr: moment().format('YYYY-MM'),
@@ -92,11 +92,10 @@ class ownSalary extends Component {
     });
   }
   /**
-   * 退出账号
+   * 修改密码
    */
-  logOut = () => {
-    logOut();
-    router.replace('/');
+  editHendal = (bool) => {
+    this.setState({editVisible: bool});
   }
 
   render () {
@@ -104,6 +103,7 @@ class ownSalary extends Component {
     const {
       isLoadingUserInfo,
       visible,
+      editVisible,
       defDateStr,
       selectEmployeeStatus,
     } = this.state;
@@ -123,7 +123,7 @@ class ownSalary extends Component {
         <div className={style.userInfo}>
           <div className={style.title}>
               <div className={style.topTitle}>绥德县行政事业单位干部职工工资单</div>
-              <div className={style.logOut} onClick={this.logOut}>退出</div>
+              <div className={style.logOut} onClick={() => this.editHendal(true)}>退出</div>
           </div>
           <div className={style.name}>{`你好 ${userDetail?.realname}`}{userStatue? ' (' + userStatue + ')' : ''}</div>
           <div className={style.infoBottomBar}>
@@ -207,13 +207,15 @@ class ownSalary extends Component {
             </div>
           </>
         }
-        
+        {/* 日期选择 */}
         <DateModal
           visible={visible}
           value={defDateStr}
           onSubmit={this.onSubmitDate} 
           onCancle={this.clickDataModal}
         />
+        {/* 修改密码 & 退出 */}
+        <EditModal visible={editVisible} onCancle={() => this.editHendal(false)}/>
     </div>
   }
 }

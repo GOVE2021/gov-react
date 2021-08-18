@@ -13,7 +13,7 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: false,
-      title: 'GOV',
+      title: '绥德县行政事业单位干部职工工资查询系统',
       dll: false,
     }],
   ],

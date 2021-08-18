@@ -16,6 +16,7 @@ class department extends Component {
       oldPsd: '',
       firstPsd: '',
       secondPsd: '',
+      editLoading: false,
     }
   }
   componentDidMount () {
@@ -28,15 +29,24 @@ class department extends Component {
    * 提交修改密码
    */
   handleOk = () => {
-    const {
-      oldPsd,
-      firstPsd,
-      secondPsd,
-    } = this.state;
+    const { oldPsd, firstPsd, secondPsd, editLoading } = this.state;
+    const rag = /[\u4e00-\u9fa5]/;
+    if (editLoading) {
+      return null;
+    }
+    if (rag.test(firstPsd) || rag.test(oldPsd)) {
+      message.error("密码不能包含中文！");
+      return null;
+    }
+    if (firstPsd.length === 0 || oldPsd.length === 0){
+      message.error('密码不能为空');
+      return null
+    }
     if (firstPsd !== secondPsd) {
       message.error('两次密码不一致');
       return null
     }
+    this.setState({editLoading: true});
     this.props.dispatch({
       type: 'Users/updatePsd',
       payload: {
@@ -45,6 +55,7 @@ class department extends Component {
         newPassword2: md5(secondPsd),
       }
     }).then(({ code, msg }) => {
+      this.setState({editLoading: false});
       if (code === 200) {
         this.setState({ visible: false });
         message.success('密码修改成功，请重新登陆');
@@ -72,11 +83,7 @@ class department extends Component {
   render () {
     const { userDetail } = this.props;
     const {
-      visible,
-      oldPsd,
-      firstPsd,
-      secondPsd,
-    } = this.state;
+      visible, oldPsd, firstPsd, secondPsd, editLoading } = this.state;
     return <>
       <div className={style.content}>
         {
@@ -117,6 +124,11 @@ class department extends Component {
           cancelText={'取消'}
           onOk={this.handleOk}
           onCancel={() => {this.setState({ visible: false })}}
+          okButtonProps={{
+            disabled: editLoading,
+            loading: editLoading
+          }}
+          cancelButtonProps={{disabled: editLoading}}
         >
           {/* 原密码 */}
           <div className={style.formDom}>

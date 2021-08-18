@@ -1,0 +1,64 @@
+.modalDom{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.bottorBar{
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
+  background-color: #FFF;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-radius: 10px 10px 0 0;
+  z-index: 110;
+}
+.bottorBar .bottomDom{
+  width: 100%;
+  height: auto;
+  font-size: 15px;
+  padding: 10px 0;
+  text-align: center;
+}
+.bottorBar .title{
+  height: auto;
+  margin-bottom: 25px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+.submitPSD{
+  width: 80vw;
+  margin-left: 10vw;
+  padding: 8px 0;
+  height: auto;
+  color: #FFF;
+  margin-top: 25px;
+  border-radius: 20px;
+  background-color: rgb(24, 144, 255);
+  text-align: center;
+}
+/******************** 修改密码 ********************/
+.formDom{
+  display: flex;
+  width: 100%;
+  padding: 10px 0;
+}
+.formDom .label{
+  width: 100px;
+  text-align: right;
+  padding-top: 5px;
+  padding-right: 10px;
+}
+.formDom .value{
+  width: 100%;
+  flex: 1;
+
+}
+/******************** end ********************/
