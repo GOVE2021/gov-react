@@ -58,7 +58,7 @@ class UserLogin extends Component {
     return (
       <div className={style.bg}>
         <div className={style.login}>
-          <div className={style.title}>绥德县行政事业单位职工工资查询系统</div>
+          <div className={style.title}>绥德县行政事业单位干部职工工资查询系统</div>
           <Form
             layout="vertical"
             hideRequiredMark

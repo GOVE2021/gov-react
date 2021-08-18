@@ -9,8 +9,8 @@ message.config({
   maxCount: 1,
 });
 // let baseUrl =  ''; // 本地mock
-// let baseUrl =  'http://61.150.107.199:7081'; // 客户
-let baseUrl =  'http://47.105.192.57:7088'; // 联调
+let baseUrl =  'http://61.150.107.199:7081'; // 客户
+// let baseUrl =  'http://47.105.192.57:7088'; // 联调
 
 const instance = axios.create({
     timeout: 5000, // 超时时间
