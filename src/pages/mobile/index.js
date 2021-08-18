@@ -121,14 +121,12 @@ class ownSalary extends Component {
     return <div className={style.H5Dom}>
         <img className={style.userBg} src={userInfoBG} alt='' />
         <div className={style.userInfo}>
-          <div className={style.title}>
-              <div className={style.topTitle}>绥德县行政事业单位干部职工工资单</div>
-              <div className={style.logOut} onClick={() => this.editHendal(true)}>退出</div>
-          </div>
+          <div className={style.topTitle}>绥德县行政事业单位干部职工工资单</div>
           <div className={style.name}>{`你好 ${userDetail?.realname}`}{userStatue? ' (' + userStatue + ')' : ''}</div>
+          <div className={style.depart}>{userDetail?.departmentName}</div>
           <div className={style.infoBottomBar}>
-            <div className={style.depart}>{userDetail?.departmentName}</div>
-            <div className={style.roleType}>{roleTypeStr}</div>
+              <div className={style.roleType}>{roleTypeStr}</div>
+              <div className={style.logOut} onClick={() => this.editHendal(true)}>退出/修改密码</div>
           </div>
         </div>
 

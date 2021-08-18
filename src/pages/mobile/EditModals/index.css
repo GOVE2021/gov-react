@@ -26,6 +26,12 @@
   padding: 10px 0;
   text-align: center;
 }
+.bottorBar .btnLine{
+  width: 80vw;
+  margin-left: 10vw;
+  height: 1px;
+  background-color: gainsboro;
+}
 .bottorBar .title{
   height: auto;
   margin-bottom: 25px;

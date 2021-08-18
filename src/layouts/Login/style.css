@@ -4,6 +4,7 @@
   height: 100vh;
   position: relative;
   background-color: #CCEEFF;
+  overflow: hidden;
 }
 .login{
   height: auto;

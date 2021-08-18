@@ -168,6 +168,7 @@ class DataModal extends Component {
           :
           <>
             <div className={style.bottomDom} style={{color: 'red'}} onClick={e => this.editPsd(e)}>修改密码</div>
+            <div className={style.btnLine}></div>
             <div className={style.bottomDom} onClick={e => this.logOut()}>退出登陆</div>
           </>
         }
