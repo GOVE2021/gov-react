@@ -23,7 +23,7 @@ import {
   ADD_TYPE,
   crerateTitleTotal,
 } from './cont';
-import { PERSON_TYPE_LIST } from '../utils';
+import { PERSON_TYPE_LIST, showPaginationString } from '../utils';
 import zhCN from 'antd/es/locale/zh_CN'; 
 import style from './style.css';
 
@@ -243,6 +243,8 @@ class salary extends Component {
       deleteVisible,
       deleteItem,
       deleteLoading,
+      pageSize,
+      pageNum,
     } = this.state;
     const employTitleList = selectEmployeeStatus === PERSON_TYPE_LIST[0].key ? IN_WORK_TITLE_LIST : OUT_WORK_TITLE_LIST;
     const coulmnsData = userDetail?.roleType !== 1 ? [...BASE_TITLE_LIST, ...employTitleList, ...tableTitle] : [...BASE_TITLE_LIST, ...employTitleList];
@@ -324,6 +326,7 @@ class salary extends Component {
             pagination={false}
           />
           <div className={style.bottomBar}>
+            {showPaginationString(pageNum, pageSize, salaryList?.total)}
             <Pagination
               className={style.pagination}
               showSizeChanger={true}

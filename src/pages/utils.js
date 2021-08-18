@@ -339,3 +339,13 @@ export const getByteLen = (string) => {
   }
   return len;
 };
+/**
+ * 页码显示
+ */
+export const showPaginationString = (pageNum,pageSize,total) => {
+  const startNum = (pageNum - 1) * pageSize + 1;
+  const endNum = (pageNum * pageSize) > total? total: (pageNum * pageSize);
+  return <div style={{paddingTop: 25}}>
+    {`共 ${total} 条数据, 当前页显示第 ${startNum}-${endNum} 条`}
+  </div>
+} 

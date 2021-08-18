@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Table, Input, TreeSelect, Icon, Modal, Button, ConfigProvider, Pagination, message } from 'antd';
 import { HANDEL_MAP, USER_TABLE_DEFU_ARR, ADMIN_USER_TYPE } from './cont';
+import { showPaginationString } from '../utils';
 import UserDetail from './UserDetail';
 import zhCN from 'antd/es/locale/zh_CN'; 
 
@@ -237,6 +238,8 @@ class users extends Component {
       itemVisible,
       resetOrDeleteVisible,
       handelKeyItem,
+      pageSize,
+      pageNum,
       tableTitle
     } = this.state;
     return (
@@ -315,6 +318,7 @@ class users extends Component {
             }}
           />
           <div className={style.bottomBar}>
+            {showPaginationString(pageNum, pageSize, userList?.total)}
             <Pagination
               className={style.pagination}
               showSizeChanger={true}

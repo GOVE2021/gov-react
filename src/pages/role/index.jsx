@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import { connect } from 'dva';
 import { Modal, Table, Select, TreeSelect, Input, Icon, ConfigProvider, Pagination, message } from 'antd';
-import { ROLE_LIST_MAP, transDepartmentIds } from '../utils';
+import { ROLE_LIST_MAP, transDepartmentIds, showPaginationString } from '../utils';
 import { TABLE_COMMEN_TITLE_LIST } from './cont'
 import zhCN from 'antd/es/locale/zh_CN'; 
 
@@ -216,6 +216,8 @@ class department extends Component {
       selectDepartIds,
       titleArray,
       editLoading,
+      pageSize,
+      pageNum,
     } = this.state;
     const roleOptionList = ROLE_LIST_MAP.filter(n => n.key <= userDetail?.roleType);
     return <div className={style.content}>
@@ -274,6 +276,7 @@ class department extends Component {
           }}
         />
         <div className={style.bottomBar}>
+          {showPaginationString(pageNum, pageSize, roleList?.total)}
           <Pagination
             className={style.pagination}
             showSizeChanger={true}
