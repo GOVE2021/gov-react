@@ -1,7 +1,7 @@
 .modalDom{
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed!important;
   top: 0;
   left: 0;
   z-index: 99;
@@ -12,7 +12,7 @@
   height: auto;
   padding: 20px 0;
   background-color: #FFF;
-  position: absolute;
+  position: fixed!important;
   left: 0;
   bottom: 0;
   border-radius: 10px 10px 0 0;
