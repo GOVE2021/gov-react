@@ -78,7 +78,7 @@ export const PERSON_TYPE_LIST = [
 ];
 /**
  * 人员身份
- * （公务员、参照公务员管理人员、事业专业技术、事业管理、技术工人）
+ * （公务员、参照公务员管理人员、事业专业技术、事业管理、工勤人员）
  */
 export const PERSON_STATUE_LIST = [
   {
@@ -102,7 +102,7 @@ export const PERSON_STATUE_LIST = [
     subKey: 'CAREER_LIST',
   },
   {
-    title: '技术工人',
+    title: '工勤人员',
     key: 5,
     subKey: 'WORKER_LIST',
   },
@@ -233,21 +233,29 @@ export const CAREER_LIST = [
   },
 ];
 /**
- * 技术工人
- * 初级工、中级工、高级工
+ * 工勤人员
+ * 高技、技师、高工、中工、初工
  */
 export const WORKER_LIST = [
   {
-    title: '初级工',
+    title: '初工',
     key: 28,
   },
   {
-    title: '中级工',
+    title: '中工',
     key: 29,
   },
   {
-    title: '高级工',
+    title: '高工',
     key: 30,
+  },
+  {
+    title: '技师',
+    key: 31,
+  },
+  {
+    title: '高技',
+    key: 32,
   },
 ];
 /**
