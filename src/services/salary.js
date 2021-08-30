@@ -32,3 +32,10 @@ export const deleteSalaryData = (params) => {
 export const addSalaryData = (params) => {
   return instance.POST('/api/salary/v1/profile/add', params);
 }
+/**
+ * 批量生成薪资
+ * @returns JSON
+ */
+export const autoAddSalary = (params) => {
+  return instance.POST('/api/salary/v1/autoCreate', params);
+}

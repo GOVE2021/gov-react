@@ -40,9 +40,13 @@ class salary extends Component {
       selectEmployeeStatus: null, // 搜索员工状态
       selectMounth:  moment().format('YYYY-MM'), // 月份筛选
       itemVisible: false, // 显示个人薪资
+      autoAddSalaryVisible: false, // 自动添加下个月薪资状态
       deleteItem: null, // 删除个人薪资
       deleteVisible: false, // 删除薪资弹窗
       deleteLoading: false,
+      baseMounth: moment().subtract(1, 'months').format('YYYY-MM'), // 自动生成薪资月份
+      addMounth: moment().format('YYYY-MM'), // 添加的月份
+      autoSalaryLoading: false,
       pageSize: 10,
       pageNum: 1,
       loginUserId: null, // 登陆账号id
@@ -225,6 +229,32 @@ class salary extends Component {
       }
     })
   }
+  /**
+   * 自动生成下月薪资
+   */
+  autoAddSalary = () => {
+    const { baseMounth, addMounth } = this.state;
+    this.setState({autoSalaryLoading: true});
+    this.props.dispatch({
+      type: 'Salary/autoAddSalary',
+      payload: {
+        from: baseMounth,
+        to: addMounth,
+      }
+    }).then(({ code, msg }) => {
+      this.setState({autoSalaryLoading: false});
+      if(code ===200){
+        this.getListByParams();
+        this.setState({autoAddSalaryVisible: false});
+        message.success(msg);
+      } else {
+        message.error(msg);
+      }
+    })
+  }
+  addMounthSalary = (value) => {
+    return moment(value).format('YYYY-MM');
+  }
   render() {
     const {
       salaryList,
@@ -236,6 +266,10 @@ class salary extends Component {
       selectDpartment,
       selectName,
       selectMounth,
+      autoAddSalaryVisible,
+      baseMounth, // 自动生成薪资月份
+      addMounth, // 添加的月份
+      autoSalaryLoading,
       itemData,
       itemVisible,
       tableTitle,
@@ -306,6 +340,15 @@ class salary extends Component {
               >添加薪资</Button>
             </>
           }
+          {userDetail?.roleType === 2 && 
+            <Button
+              type="primary"
+              style={{marginLeft: 10}}
+              onClick={() => {
+                this.setState({ autoAddSalaryVisible: true })
+              }}
+            >自动生成</Button>
+          }
         </div>
         <ConfigProvider locale={zhCN}>
           <Table
@@ -375,6 +418,58 @@ class salary extends Component {
               {'删除后不可恢复！'}
             </span>
           </p>
+        </Modal>
+
+        <Modal
+          title={`自动生成 ${addMounth} 的薪资？`}
+          visible={autoAddSalaryVisible}
+          maskClosable={false}
+          closable={false}
+          onCancel={() => {
+            this.setState({autoAddSalaryVisible: false});
+          }}
+          onOk={this.autoAddSalary}
+          cancelText={'取消'}
+          okText={'确认'}
+          okType={'danger'}
+          okButtonProps={{
+            disabled: autoSalaryLoading,
+            loading: autoSalaryLoading
+          }}
+          cancelButtonProps={{disabled: autoSalaryLoading}}
+        >
+          <p>
+            <span>确认根据 </span>
+            <span>
+              <MonthPicker
+                allowClear={false}
+                value={moment(baseMounth, 'YYYY/MM')}
+                format={'YYYY-MM'}
+                placeholder="请选择账期"
+                dropdownClassName={style.dropdownClass}
+                style={{ width: 120, height: 30 }} 
+                onChange={(e) => {
+                  this.setState({ baseMounth:  this.addMounthSalary(e)})
+                }}
+              />
+            </span>
+            <span> 的账期生成 </span>
+            <span>
+              <MonthPicker
+                allowClear={false}
+                value={moment(addMounth, 'YYYY/MM')}
+                format={'YYYY-MM'}
+                placeholder="请选择账期"
+                dropdownClassName={style.dropdownClass}
+                style={{ width: 120, height: 30 }}
+                onChange={(e) => {
+                  this.setState({ addMounth:  this.addMounthSalary(e)})
+                }}
+              />
+            </span>
+          <span> 的账期薪资</span>
+          </p>
+          
         </Modal>
       </div>
     );

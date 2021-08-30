@@ -5,6 +5,7 @@ import {
   updateSalaryData,
   deleteSalaryData,
   addSalaryData,
+  autoAddSalary,
 } from "../services/salary"
 
 export default({
@@ -77,6 +78,10 @@ export default({
     },
     *addSalaryData({ payload }, { call, put }) {
       const { data } = yield call(addSalaryData, payload);
+      return data;
+    },
+    *autoAddSalary({ payload }, { call, put }) {
+      const { data } = yield call(autoAddSalary, payload);
       return data;
     }
   }
