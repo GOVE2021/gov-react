@@ -344,6 +344,7 @@ class salary extends Component {
             <Button
               type="primary"
               style={{marginLeft: 10}}
+              disabled={salaryList?.isShowAutoCreate}
               onClick={() => {
                 this.setState({ autoAddSalaryVisible: true })
               }}
