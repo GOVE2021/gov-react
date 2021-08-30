@@ -150,6 +150,22 @@ export const GOV_PERSON_LIST = [{
  */
 export const TECHNIQUE_LIST = [
   {
+    title: '专业技术1级',
+    key: 101,
+  },
+  {
+    title: '专业技术2级',
+    key: 102,
+  },
+  {
+    title: '专业技术3级',
+    key: 103,
+  },
+  {
+    title: '专业技术4级',
+    key: 104,
+  },
+  {
     title: '专业技术5级',
     key: 9,
   },

@@ -119,7 +119,7 @@ class department extends Component {
     return (
       <div className={style.treeLineItem}>
         <div className={style.title}>{item?.departmentName || '-'}</div>
-        <div className={style.count}>{item?.employeeNums || '-'}</div>
+        {/* <div className={style.count}>{item?.employeeNums || '-'}</div> */}
         <div className={style.handel}>
           {
             parentId && (
@@ -218,7 +218,7 @@ class department extends Component {
       >添加部门</Button>
       <div className={style.treeLineTitle}>
         <div className={style.title}><span style={{paddingLeft: 30}}>部门名称</span></div>
-        <div className={style.count}>人数(人)</div>
+        {/* <div className={style.count}>人数(人)</div> */}
         <div className={style.handel}>操作</div>
       </div>
       {departmentIsLoading?
