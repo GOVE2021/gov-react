@@ -233,13 +233,14 @@ class salary extends Component {
    * 自动生成下月薪资
    */
   autoAddSalary = () => {
-    const { baseMounth, addMounth } = this.state;
+    const { baseMounth, addMounth, selectEmployeeStatus } = this.state;
     this.setState({autoSalaryLoading: true});
     this.props.dispatch({
       type: 'Salary/autoAddSalary',
       payload: {
         from: baseMounth,
         to: addMounth,
+        employeeStatus: selectEmployeeStatus,
       }
     }).then(({ code, msg }) => {
       this.setState({autoSalaryLoading: false});
@@ -468,7 +469,7 @@ class salary extends Component {
                 }}
               />
             </span>
-          <span> 的账期薪资</span>
+          <span> 的账期薪资?</span>
           </p>
           
         </Modal>
