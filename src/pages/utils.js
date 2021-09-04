@@ -311,7 +311,19 @@ export const EDU_BG_LIST = [
     key: 8,
   },
 ];
-
+/**
+ * 完成状态
+ */
+export const COMPLETE_PROGRESS = [
+  {
+    key: 0,
+    title: '未完成'
+  },
+  {
+    key: 1,
+    title: '完成'
+  }
+]
 /**
  * 职务/职称
  */
@@ -373,3 +385,30 @@ export const showPaginationString = (pageNum,pageSize,total) => {
     {`共 ${total} 条数据, 当前页显示第 ${startNum}-${endNum} 条`}
   </div>
 } 
+/** 
+ * 首页进度表头
+ * */ 
+ export const COMPLETE_PROGRESS_TITLE_LIST= [
+  {
+    title: '部门',
+    dataIndex: 'departmentName',
+    // align: 'center',
+    width: 30,
+    ellipsis: true,
+  },
+  {
+    title: '薪资账期',
+    dataIndex: 'salaryId',
+    align: 'center',
+    width: 20,
+  },
+  {
+    title: '完成状态',
+    dataIndex: 'unfinishedStatus',
+    align: 'center',
+    width: 10,
+    render: (i) => {
+      return COMPLETE_PROGRESS.find((s) => s.key === Number(i))?.title || '';
+    }
+  }
+];

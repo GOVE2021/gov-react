@@ -47,3 +47,7 @@ export const resetUserPsd = (params) => {
  export const getPersonByKeywords = (params) => {
   return instance.POST('/api/employee/v1/simple/list', params);
 }
+//首页未完成列表
+export const unfinishedList = (params)=>{
+  return instance.POST('/api/salary/v1/unfinished/list',params)
+}

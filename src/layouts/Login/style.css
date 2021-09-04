@@ -3,15 +3,39 @@
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-color: #CCEEFF;
+  /* background-color: #CCEEFF; */
   overflow: hidden;
+  display: flex;
+}
+.logo{
+  width: 50%;
+  position: relative;
+}
+.logo img{
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .login{
   height: auto;
   width: 100%;
+  flex: 1;
+  position: relative;
+}
+.login .form{
+  width: 90%;
   position: absolute;
-  top: 10%;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.login .form form{
+  width: 300px;
+  margin-left: 50%;
+  transform: translate(-50%, 0%);
 }
 .title{
   width: 100%;

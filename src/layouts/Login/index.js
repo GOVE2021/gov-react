@@ -3,6 +3,10 @@ import { Form, Button, Col, Row, Input, Icon, Checkbox } from 'antd';
 import { connect } from 'dva';
 import { setCookie, getCookie } from '@utils/authCK';
 import md5 from 'blueimp-md5';
+import { isMobile } from '../cont';
+
+import logpIcon from '@assets/logo.png';
+
 import style from './style.css';
 
 function hasErrors(fieldsError) {
@@ -55,108 +59,114 @@ class UserLogin extends Component {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
     const userNameError = isFieldTouched('userName') && getFieldError('userName');
     const passwordError = isFieldTouched('password') && getFieldError('password');
+    const isH5 = isMobile();
     return (
       <div className={style.bg}>
+        {!isH5 && <div className={style.logo}>
+          <img src={logpIcon} alt='' />
+        </div>}
         <div className={style.login}>
-          <div className={style.title}>绥德县行政事业单位干部职工工资查询系统</div>
-          <Form
-            layout="vertical"
-            hideRequiredMark
-            style={{ marginTop: 8 }}
-            onSubmit={this.handleSubmit}
-          >
-            <Row gutter={12}>
-              <Col span={20} offset={2}>
-                <Form.Item
-                  label="用户名"
-                  validateStatus={userNameError ? 'error' : ''}
-                  help={userNameError || ''}
-                >
-                  {getFieldDecorator('userName', {
-                    rules: [
-                      { required: true, message: '请输入身份证号' },
-                      // {
-                      //   pattern: new RegExp(/^[\u4e00-\u9fa5]/g, ''),
-                      //   message: 'User names must be in Chinese!',
-                      // }
-                      {
-                        whitespace: true,
-                        message: '不能有空格!',
-                      },
-                    ],
-                    initialValue: '',
-                  })(
-                    <Input
-                      placeholder="请输入身份证号"
-                      size="large"
-                      prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                      onChange={()=>this.handleSelectChange.bind(this)}
-                      allowClear={true}
-                    />,
-                  )}
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Row gutter={12}>
-              <Col span={20} offset={2}>
-                <Form.Item
-                  label="密码"
-                  validateStatus={passwordError ? 'error' : ''}
-                  help={passwordError || ''}
-                >
-                  {getFieldDecorator('password', {
-                    rules: [
-                      { required: true, message: '请输入密码!' },
-                      {
-                        whitespace: true,
-                        message: '不能有空格!',
-                      },
-                    ],
-                    initialValue: '',
-                  })(
-                    <Input.Password
-                      placeholder="请输入密码"
-                      size="large"
-                      prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                      type="password"
-                      allowClear={true}
-                    />,
-                  )}
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={12}>
-              <Col span={10} offset={10}>
-                <Form.Item>
-                  {getFieldDecorator('remember', {
-                    valuePropName: 'checked',
-                    initialValue: true,
-                    getValueFromEvent(e) {
-                      return e.target.checked;
-                    },
-                  })(<Checkbox>记住密码</Checkbox>)}
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Row gutter={12}>
-              <Col span={10} offset={7}>
-                <Form.Item>
-                  <Button
-                    block
-                    // onClick={this.onClose}
-                    type="primary"
-                    size="large"
-                    htmlType="submit"
-                    // disabled={hasErrors(getFieldsError())}
+          <div className={style.form}>
+            <div className={style.title}>绥德县行政事业单位干部职工工资查询系统</div>
+            <Form
+              layout="vertical"
+              hideRequiredMark
+              style={{ marginTop: 8 }}
+              onSubmit={this.handleSubmit}
+            >
+              <Row gutter={12}>
+                <Col span={20} offset={2}>
+                  <Form.Item
+                    label="用户名"
+                    validateStatus={userNameError ? 'error' : ''}
+                    help={userNameError || ''}
                   >
-                      登陆
-                  </Button>
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
+                    {getFieldDecorator('userName', {
+                      rules: [
+                        { required: true, message: '请输入身份证号' },
+                        // {
+                        //   pattern: new RegExp(/^[\u4e00-\u9fa5]/g, ''),
+                        //   message: 'User names must be in Chinese!',
+                        // }
+                        {
+                          whitespace: true,
+                          message: '不能有空格!',
+                        },
+                      ],
+                      initialValue: '',
+                    })(
+                      <Input
+                        placeholder="请输入身份证号"
+                        size="large"
+                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        onChange={()=>this.handleSelectChange.bind(this)}
+                        allowClear={true}
+                      />,
+                    )}
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              <Row gutter={12}>
+                <Col span={20} offset={2}>
+                  <Form.Item
+                    label="密码"
+                    validateStatus={passwordError ? 'error' : ''}
+                    help={passwordError || ''}
+                  >
+                    {getFieldDecorator('password', {
+                      rules: [
+                        { required: true, message: '请输入密码!' },
+                        {
+                          whitespace: true,
+                          message: '不能有空格!',
+                        },
+                      ],
+                      initialValue: '',
+                    })(
+                      <Input.Password
+                        placeholder="请输入密码"
+                        size="large"
+                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        type="password"
+                        allowClear={true}
+                      />,
+                    )}
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={12}>
+                <Col span={10} offset={10}>
+                  <Form.Item>
+                    {getFieldDecorator('remember', {
+                      valuePropName: 'checked',
+                      initialValue: true,
+                      getValueFromEvent(e) {
+                        return e.target.checked;
+                      },
+                    })(<Checkbox>记住密码</Checkbox>)}
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              <Row gutter={12}>
+                <Col span={10} offset={7}>
+                  <Form.Item>
+                    <Button
+                      block
+                      // onClick={this.onClose}
+                      type="primary"
+                      size="large"
+                      htmlType="submit"
+                      // disabled={hasErrors(getFieldsError())}
+                    >
+                        登陆
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form>
+          </div>
         </div>
       </div>
     );

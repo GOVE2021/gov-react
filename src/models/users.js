@@ -7,6 +7,7 @@ import {
   updatePsd,
   resetUserPsd,
   getPersonByKeywords,
+  unfinishedList,
 } from "../services/userApi";
 import { getDepartmentList } from '../services/department';
 export default({
@@ -97,6 +98,10 @@ export default({
     },
     *getPersonByKeywords({ payload }, { call, put }){
       const { data } = yield call(getPersonByKeywords, payload);
+      return data;
+    },
+    *unfinishedList({ payload }, { call, put }){
+      const { data } = yield call(unfinishedList, payload);
       return data;
     }
   }

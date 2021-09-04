@@ -38,7 +38,7 @@ class salary extends Component {
       selectDpartment: null, // 部门关键字
       selectName: null, // 姓名关键字
       selectEmployeeStatus: null, // 搜索员工状态
-      selectMounth:  moment().format('YYYY-MM'), // 月份筛选
+      selectMounth: moment().format('YYYY-MM'), // 月份筛选
       itemVisible: false, // 显示个人薪资
       autoAddSalaryVisible: false, // 自动添加下个月薪资状态
       deleteItem: null, // 删除个人薪资
