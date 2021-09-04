@@ -62,9 +62,9 @@ class UserLogin extends Component {
     const isH5 = isMobile();
     return (
       <div className={style.bg}>
-        {!isH5 && <div className={style.logo}>
+        {/* {!isH5 && <div className={style.logo}>
           <img src={logpIcon} alt='' />
-        </div>}
+        </div>} */}
         <div className={style.login}>
           <div className={style.form}>
             <div className={style.title}>绥德县行政事业单位干部职工工资查询系统</div>
