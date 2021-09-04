@@ -109,6 +109,7 @@ class department extends Component {
   getListByParams = () => {
     const { dispatch } = this.props;
     const { selectMounth, selectDpartment, unfinishedStatus, pageNum, pageSize } = this.state;
+    this.setState({ loadProcessStatus: true });
     dispatch({
       type: 'Users/unfinishedList',
       payload: {
@@ -119,6 +120,7 @@ class department extends Component {
         "pageSize": pageSize,
       },
     }).then(({data, code, msg}) => {
+      this.setState({ loadProcessStatus: false });
       if (code === 200) {
         this.setState({unfinishedData: data});
       } else {
