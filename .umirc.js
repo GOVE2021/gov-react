@@ -7,9 +7,6 @@ export default {
   history:'hash',
   base: '/',
   publicPath: '/',
-  links: [
-    {rel: 'icon', href: "./src/assets/favicon.ico"}
-  ],
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
