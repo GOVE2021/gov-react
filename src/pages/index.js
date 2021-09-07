@@ -262,7 +262,7 @@ class department extends Component {
             pagination={false}
           />
           <div className={style.bottomBar}>
-            {showPaginationString(pageNum, pageSize, 100)}
+            {showPaginationString(pageNum, pageSize, unfinishedData?.total)}
             <Pagination
               className={style.pagination}
               showSizeChanger={true}
